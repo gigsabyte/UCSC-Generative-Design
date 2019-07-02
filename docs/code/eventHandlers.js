@@ -1,7 +1,7 @@
 var pearClicks = 0;
 
 function initEventHandlers() {
-	document.getElementById('pearimg').onclick = function() { changePearText() };
+	//document.getElementById('pearimg').onclick = function() { changePearText() };
 }
 
 function changePearText() {
