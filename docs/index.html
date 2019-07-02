@@ -3,12 +3,23 @@
     <link rel="stylesheet" href="styles.css">
     <meta charset="utf-8"/>
     <title> Gigi Bachtel's CMPM 147 Portfolio </title>
-    
+
+    <!-- Include external libraries -->
+    <script src = "lib/p5.js"></script>
+    <script src = "lib/p5.sound.js"></script>
+
+    <!-- Include ASG1 code -->
+    <script src = "code/asg1/sketch.js"></script>
+    <script src = "code/asg1/particle.js"></script>
+    <script src = "code/asg1/particle-system.js"></script>
+
+
     <!-- Include external libraries -->
     <script src = "code/eventHandlers.js"></script>
+    <script src = "code/main.js"></script>
   </head>
 
-  <body onload="initEventHandlers()">
+  <body onload="main()">
 
     <div class="pagecontent">
       <h1>CMPM 147, Summer 2019</h1>
@@ -18,7 +29,12 @@
 
       <p id="peartxt">This is a picture of a Paddle Pear wearing overalls.</p> 
       <p><a href="https://savorsaber.com">Play Savor Saber!!!!!</a> </p>
-    </div>    
+
+      <div id="asg1"></div>
+
+    </div>
+
+      
 
   </body>
   
