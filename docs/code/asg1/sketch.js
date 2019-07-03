@@ -4,7 +4,7 @@ const asg1 = ( p ) => {
   let y = 100;
 
   let ps;
-  let count = 250;
+  let count = 500;
   let circles = 25;
 
   let bgm;

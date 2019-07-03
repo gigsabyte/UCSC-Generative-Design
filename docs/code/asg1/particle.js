@@ -10,7 +10,7 @@ class Particle {
 		this.velocity = [Math.cos(theta) * v, Math.sin(theta) * v];
 
 		this.origaccel = [Math.cos(accel), Math.sin(accel)];
-		this.accel = [Math.cos(accel)/(2.25 + Math.random()/4), Math.sin(accel)/(2.25 + Math.random()/4)];
+		this.accel = [Math.cos(accel)/(2.5), Math.sin(accel)/(2.5)];
 		console.log(this.accel);
 
 		this.lifespan = lifetime;
