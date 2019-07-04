@@ -86,7 +86,6 @@ class ParticleSystem {
 	// by searching for a circle that is "dead" and reviving its particles
 	emit() {
 		for(let i = 0; i < this.circles.length; i++) {
-			console.log(this.circles[i][0]);
 			if(this.circles[i][0].dead) {
 				for(let j = 0; j < this.circles[i].length; j++) {
 					this.circles[i][j].emit();

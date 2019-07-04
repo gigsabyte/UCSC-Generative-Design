@@ -72,17 +72,17 @@ class Particle {
 		}
 
 		// p5 formatting
-		this.p5.strokeWeight(this.age/this.lifespan * 10);
+		this.p5.strokeWeight(this.age/this.lifespan * 5);
 		this.p5.stroke(255, 200, 255, alpha);
 		this.p5.fill(color[0], color[1], color[2], alpha);
 
 		// adjust size and scale
-		let size = this.age * Math.log(this.age)/ (this.lifespan * 2);
+		let size = this.age * Math.log(this.age)/ (this.lifespan * 1.5);
 		let scale = this.scale;
 
 		// draw arc
 		this.p5.arc(this.pos[0], this.pos[1],  size * scale, size * scale, 0,
-		 Math.min((Math.PI * 12) * this.age/(this.lifespan * 2), Math.PI * 2), this.p5.CHORD);
+		 Math.min((Math.PI * 12) * this.age/(this.lifespan * 1.5), Math.PI * 2), this.p5.CHORD);
 	}
 
 	// function that kills a particle and resets position/velocity/acceleration
