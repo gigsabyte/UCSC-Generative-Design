@@ -1,7 +1,16 @@
+/*
+ * eventHandlers.js
+ * holds initEventHandlers() which sets event functions
+ * as well as actual event functions
+ * not used in asg1
+ * written by gigsabyte
+ */
+
 var pearClicks = 0;
 
 function initEventHandlers() {
-	document.getElementById('pearimg').onclick = function() { changePearText() };
+	//document.getElementById('pearimg').onclick = function() { changePearText() };
+	document.getElementById('showgif').onclick = function() { toggleGif() };
 }
 
 function changePearText() {
@@ -25,4 +34,19 @@ function changePearText() {
 	++pearClicks;
 	let percent = pearClicks*20;
 	document.getElementById('pearimg').style.filter = "invert(" + percent + "%)";
+}
+
+function toggleGif() {
+
+	let gif = document.getElementById('asg1gif');
+	let text = document.getElementById('showgif');
+
+	if(text.innerHTML == "Show .gif representation") {
+		text.innerHTML = "Hide .gif representation";
+		gif.style.display = "inline";
+	} else {
+		text.innerHTML = "Show .gif representation";
+		gif.style.display = "none";
+	}
+
 }

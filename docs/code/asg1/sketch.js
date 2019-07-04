@@ -1,61 +1,85 @@
+/*
+ * code/asg1/sketch.js
+ * holds p5 sketch.js code for asg1
+ * creates p5 sketch with particle system, music and external html button
+ * pressing the button plays the music, and when music is above a certain
+ * amplitude, makes the particle system emit
+ * written by gigsabyte
+ */
+
 const asg1 = ( p ) => {
 
-  let x = 100; 
-  let y = 100;
+  // html elements
+  let canvas;
+  let button;
 
+  // particle system variables
   let ps;
   let count = 500;
   let circles = 25;
 
+  // music
   let bgm;
   let amplitude;
 
-  let button;
-  let canvas;
+  let frameBuffer = 0; // frame buffer
 
-  let frameBuffer = 0;
-
+  // preload music
   p.preload = function() {
   	p.soundFormats('mp3', 'ogg');
   	bgm = p.loadSound('assets/audio/whitney.mp3');
   }
 
+  // setup
   p.setup = function() {
+
+    // create canvas element and style it
     canvas = p.createCanvas(p.windowWidth/2, p.windowWidth/2 * 9/16);
-  
+
     canvas.style('border', '4px solid #3d3d3d');
     canvas.style('border-radius', '4px');
 
-    amplitude = new p5.Amplitude();
+    p.createP(''); // empty space for formatting
 
-    ps = new ParticleSystem(count, circles, p.windowWidth/2, p.windowWidth/2 * 9/16, this);
-
-    p.createP('');
+    // create button and format it
     button = p.createButton('Play music');
     p.stylizeButton(button);
-    //button.position(19, 19);
-    button.mousePressed(p.toggleMusic);
+    button.mousePressed(p.toggleMusic); // call toggleMusic when button is pressed
+
+    // create particle system
+    ps = new ParticleSystem(count, circles, p.windowWidth/2, p.windowWidth/2 * 9/16, this);
+
+    // create p5 amplitude object
+    amplitude = new p5.Amplitude();
+    
   };
 
+  // draw function (runs every frame)
   p.draw = function() {
-    let red = p.color(70, 10, 55);
-    let blue = p.color(40, 15, 80);
+
+    // fade back and forth between red and blue colors (for aesthetic porpoise)
+    let red = p.color(60, 10, 65);
+    let blue = p.color(30, 15, 90);
     p.background(p.lerpColor(red, blue, (Math.sin(p.frameCount/60 * 119/60) + 1)/2));
 
+    // if song's amplitude is above 0.2, emit a burst of particles
+    // also check frame buffer so particles aren't constantly emitting
     if(amplitude.getLevel() > 0.2 && frameBuffer > 5) {
         ps.emit();
         frameBuffer = 0;
     }
 
-    frameBuffer++;
+    frameBuffer++; // increment frame buffer
     
-    ps.run();
+    ps.run(); // update particles on screen
   }
 
+  // on window resize, resize canvas
   p.windowResized = function() {
   	p.resizeCanvas(p.windowWidth/2, p.windowWidth/2 * 9/16);
   }
 
+  // handle music play/pause
   p.toggleMusic = function() {
     if(bgm != null) {
       if(bgm.isPlaying()) {
@@ -69,6 +93,7 @@ const asg1 = ( p ) => {
     }
   }
 
+  // add CSS style to button
   p.stylizeButton = function(button) {
     button.style('background-color', 'white');
     button.style('border', '4px solid #3d3d3d');
