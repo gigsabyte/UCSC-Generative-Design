@@ -8,8 +8,8 @@
 var canvases = [];
 
 function main() {
-	let asg1p5 = new p5(asg1, 'asg1');
-	canvases.push(asg1p5);
+	let asg2p5 = new p5(asg2, 'asg2');
+	canvases.push(asg2p5);
 
 	initEventHandlers();
 }

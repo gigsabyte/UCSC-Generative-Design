@@ -10,7 +10,7 @@ var pearClicks = 0;
 
 function initEventHandlers() {
 	//document.getElementById('pearimg').onclick = function() { changePearText() };
-	document.getElementById('showgif').onclick = function() { toggleGif() };
+	//document.getElementById('showgif').onclick = function() { toggleGif() };
 }
 
 function changePearText() {
