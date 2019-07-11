@@ -28,13 +28,11 @@ img {
 }
 
 a {
-	font-style: italic;
 	font-weight: bold;
 	color: #4e3973;
 	text-decoration: none;
 }
 a:hover {
-	font-style: italic;
 	font-weight: bold;
 	color: #6b48a9;
 	text-decoration: none;

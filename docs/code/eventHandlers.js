@@ -10,7 +10,14 @@ var pearClicks = 0;
 
 function initEventHandlers() {
 	//document.getElementById('pearimg').onclick = function() { changePearText() };
-	//document.getElementById('showgif').onclick = function() { toggleGif() };
+	if(document.getElementById('showgif') != null) document.getElementById('showgif').onclick = function() { toggleGif() };
+
+	// disable spacebar scrolling
+	document.documentElement.addEventListener('keydown', function (e) {
+	    if ( ( e.keycode || e.which ) == 32) {
+	        e.preventDefault();
+	    }
+	}, false);
 }
 
 function changePearText() {
@@ -39,6 +46,7 @@ function changePearText() {
 function toggleGif() {
 
 	let gif = document.getElementById('asg1gif');
+	if(gif == null) gif = document.getElementById('asg2gif');
 	let text = document.getElementById('showgif');
 
 	if(text.innerHTML == "Show .gif representation") {
