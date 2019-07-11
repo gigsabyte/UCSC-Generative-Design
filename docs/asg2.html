@@ -1,0 +1,55 @@
+<html lang="en">
+  <head>
+    <link rel="stylesheet" href="styles.css">
+    <meta charset="utf-8"/>
+    <title> Gigi Bachtel's CMPM 147 Portfolio </title>
+
+    <!-- Include external libraries -->
+    <script src = "lib/p5.js"></script>
+    <script src = "lib/p5.sound.js"></script>
+    <script src = "lib/p5.dom.js"></script>
+
+    <!-- Include ASG1 code -->
+    <script src = "code/asg2/sketch.js"></script>
+    <script src = "code/asg2/world-generator.js"></script>
+
+
+    <!-- Include external libraries -->
+    <script src = "code/eventHandlers.js"></script>
+    <script src = "code/main.js"></script>
+  </head>
+
+  <body onload="main()">
+
+    <div class="pagecontent">
+      <h1>CMPM 147, Summer 2019</h1>
+      <h2>Assignment 2: Terrain Generation with Perlin Noise</h2>
+
+      <div id = "Play music"></div>
+      <div><p></p><div id="asg2"></div></div>
+      <p></p>
+      <h2>Controls: WASD to move, drag mouse to move camera, space/shift to float/sink</h2>
+      <p></p>
+      <p>Seeded 2D Perlin noise is used to generate a 48x48x24 voxel terrain with different blocks based on height.</p>
+      <p>Every coordinate on the floor of the terrain (the x-z plane) has its x and z values passed through a Perlin noise function, which then
+      generates a semi-random decimal between 0 and 1. 
+      <p>That decimal is then scaled by the total depth allowed by the terrain,
+      which determines the height at that point in the x-z plane in voxels.</p>
+      <p>It's like Minecraft, but worse. 🎉</p>
+      <button id="showgif"> Show .gif representation</button>
+      <p></p>
+      <img src="assets/imgs/asg2.gif" id="asg2gif" class="gif"></img>  
+      <h2>Past assignments:</h2>
+      <p><a href="asg1.html">Music Visualizer with Particle System</a></p>
+      
+      
+      
+
+    </div>
+
+      
+
+  </body>
+  
+
+</html>
