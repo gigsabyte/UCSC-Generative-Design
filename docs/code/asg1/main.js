@@ -1,5 +1,5 @@
 /*
- * main.js
+ * code/asg1/main.js
  * holds main(), the function that initializes all p5 canvases
  * and calls event handler initialization as needed
  * written by gigsabyte
