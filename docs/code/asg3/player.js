@@ -15,10 +15,13 @@ class Player {
 		this.p5 = p5;
 
 		this.origsprite = origsprite;
+		this.hasSprite = false;
 
+		// sprite and color arrays
 		this.sprite = [];
 		this.color = [];
 
+		// sprite parts
 		this.body = null;
 		this.eyes = null;
 		this.bangs = null;
@@ -26,37 +29,40 @@ class Player {
 		this.clothes = null;
 		this.hat = null;
 
-		this.name = null;
-
-		this.hasSprite = false;
 
 	}
 
-	// draw terrain
+	// draw player
 	draw() {
 
-		if(!this.hasSprite) {
+		if(!this.hasSprite) { // if player has not been given a sprite by the fashionista
 			this.p5.push();
 
-			this.p5.image(this.origsprite, 0, 0);
+			let h = this.p5.map(this.origsprite.height, 0, 625, 0, this.p5.height);
+			let w = h * 500/625;
+			this.p5.image(this.origsprite, this.p5.width-w, 0, w, h);
 
 			this.p5.pop();
 
 			return;
 		}
 
-		for(let i = 0; i < this.sprite.length; i++) {
+		for(let i = 0; i < this.sprite.length; i++) { // otherwise, combine sprite parts
 			this.p5.push();
+
+			let h = this.p5.map(this.sprite[i].height, 0, 625, 0, this.p5.height);
+			let w = h * 500/625;
 
 			this.p5.tint(this.color[i]);
 
-			this.p5.image(this.sprite[i], 0, 0);
+			this.p5.image(this.sprite[i], this.p5.width-w, 0, w, h);
 
 			this.p5.pop();
 		}
 		
 	}
 
+	// function to assign a certain type of sprite to the player
 	assignSprite(name, type, color, image) {
 
 		switch(name) {
@@ -79,11 +85,11 @@ class Player {
 				this.hat = type;
 				break;
 			default:
-				console.log('you fucked up');
+				console.log('if this happens you typo\'d');
 				return;
 		}
 
-		if(type == 'hair') {
+		if(type == 'hair') { // hair goes on the bottom
 			this.sprite.unshift(image);
 			this.color.unshift(color);
 		}
@@ -92,8 +98,10 @@ class Player {
 			this.color.push(color);
 		}
 		this.hasSprite = true;
+
 	}
 
+	// function to reset sprite
 	clearSprite() {
 		this.sprite = [];
 		this.color = [];
@@ -102,16 +110,5 @@ class Player {
 		this.body = this.eyes = this.bangs = this.hair = this.clothes = this.hat = null;
 
 	}
-
-	assignName(name) {
-		this.name = name;
-	}
-
-	clearName() {
-		this.name = null;
-	}
-
-	
-	
 	
 }

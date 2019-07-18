@@ -1,22 +1,29 @@
 /*
- * code/asg3/npc.js
- * holds NPC class
+ * code/asg3/fashionista.js
+ * holds Fashionista class
+ * Fashionista assigns the player an appearance
+ * based on the output of a nondeterministic generative grammar
  * written by gigsabyte
  */
 
 class Fashionista extends NPC {
 
 	// constructor
-	constructor(sprite, file, player, p5, images) {
+	constructor(sprite, player, p5, images) {
 
-		super(sprite, file, player, p5);
+		super(sprite, player, p5);
 
 		/* variables */
+		this.type = 'fashionista';
+
+		this.images = images;
 
 		this.races = ['human', 'mouse', 'cat', 'dog', 'pig'];
+		this.racecolors = [];
 		this.eyes = ['bored', 'pleasant', 'shy', 'sneaky', 'wild'];
 		this.bangs = [];
 		this.hairs = ['a bun', 'long hair', 'pigtails', 'a ponytail', 'short hair'];
+		this.haircolors = ['blonde', 'red', 'brown', 'black', 'blue'];
 		this.outfits = ['chef', 'detective', 'hero', 'mafioso', 'plumber'];
 		this.hats = ['chef', 'detective', 'hero', 'mafioso', 'plumber'];
 		this.colors = [];
@@ -24,16 +31,129 @@ class Fashionista extends NPC {
 		this.bangsSetup();
 		this.colorSetup();
 
+		this.rules = this.probability = null;
 
+		this.makeRules();
 
+		this.generator = new GeneratedCharacter(this.rules, this.probability);
+
+		this.result = null;
+
+		this.prompt = "Yo!!!!!!+Being a circle is noooo fun!+Ya wanna be somethin' else?+Type 'y' to get a makeover,\n or 'n' to leave.";
+
+		this.reprompt = "Type 'y' if ya want a new makeover,\n or 'n' to leave!"
+
+		this.goodbye = "See ya!";
 
 	}
 
-	// draw
-	draw() {
+	// function to generate a new player sprite
+	generate() {
+		this.player.clearSprite(); // clear old sprite
+		this.result = this.generator.generate(); // get new one
+
+		let out = this.result.generatedOutput;
+
+		// start assigning new sprites to player based on grammar output
+
+		// player hair
+		let type = out['hair'];
+		let color = this.colors['bangs'][out['haircolor']];
+		let image = this.images['hair'][out['hair']];
+		this.player.assignSprite('hair', type, color, image);
+
+		// player body
+		type = out['race'];
+		color = this.colors[out['race']][out['racecolor']];
+		image = this.images['race'][out['race']];
+		this.player.assignSprite('body', type, color, image);
+
+		// player eyes
+		type = out['eyes'];
+		color = this.p5.color(255, 255, 255);
+		image = this.images['eyes'][out['eyes']];
+		this.player.assignSprite('eyes', type, color, image);
+
+
+		// player bangs
+		type = out['bangs'];
+		color = this.colors['bangs'][out['haircolor']];
+		image = this.images['bangs'][out['race']][out['bangs']];
+		this.player.assignSprite('bangs', type, color, image);
+
+		// player outfit
+		type = out['outfit'];
+		color = this.p5.color(255, 255, 255);
+		image = this.images['outfit'][out['outfit']];
+		this.player.assignSprite('clothes', type, color, image);
+
+		// player hat
+		type = out['hat'];
+		image = this.images['hat'][out['hat']];
+		this.player.assignSprite('hat', type, color, image);
+
+	}
+
+	// function that constructs the rules and probabilities to pass to the grammar
+	makeRules() {
+		// rules to make: race, racecolor, eyes, haircolor, bangs, hair, outfit, hat
+		this.rules = [];
+		this.probability = [];
+
+		// race rules and probability
+		this.rules['race'] = this.races;
+		this.probability['race'] = [0.2, 0.2, 0.2, 0.2, 0.2];
+
+		// racecolor rules and probability
+		this.rules['racecolor'] = [];
+		this.probability['racecolor'] = [];
+
+		this.rules['racecolor']['human'] = ['pale skin','medium skin', 
+											'dark skin','warm skin', 
+											'ruddy skin','tan skin'];
+		this.probability['racecolor']['human'] = [0.15, 0.15, 0.15, 0.15, 0.2, 0.2];
+
+		this.rules['racecolor']['mouse'] = 
+		this.rules['racecolor']['cat'] =
+		this.rules['racecolor']['dog'] = ['white fur', 'light grey fur', 
+										  'dark grey fur', 'black fur', 
+										  'brown fur', 'yellow fur', 'blue fur'];
+
+		this.probability['racecolor']['mouse'] = 
+		this.probability['racecolor']['cat'] =
+		this.probability['racecolor']['dog'] = [0.1, 0.2, 0.1, 0.2, 0.1, 0.2, 0.1];
 		
+		this.rules['racecolor']['pig'] = ['pink skin', 'red skin', 
+										  'brown skin', 'blue skin', 'black skin'];
+		this.probability['racecolor']['pig'] = [0.2, 0.2, 0.2, 0.2, 0.2];
+
+		// eyes rules and probability
+		this.rules['eyes'] = this.eyes;
+		this.probability['eyes'] = [0.2, 0.2, 0.2, 0.2, 0.2];
+
+		// haircolor rules and probability
+		this.rules['haircolor'] = this.haircolors;
+		this.probability['haircolor'] = [0.2, 0.2, 0.2, 0.2, 0.2];
+
+		// bangs rules and probability
+		this.rules['bangs'] = this.bangs['human'];
+		this.probability['bangs'] = [0.3, 0.3, 0.4];
+
+		// hair rules and probability
+		this.rules['hair'] = this.hairs;
+		this.probability['hair'] = [0.2, 0.2, 0.2, 0.2, 0.2];
+
+		// outfit rules and probability
+		this.rules['outfit'] = this.outfits;
+		this.probability['outfit'] = [0.2, 0.2, 0.2, 0.2, 0.2];
+
+		// hat rules and probability
+		this.rules['hat'] = this.hats;
+		this.probability['hat'] = [0.2, 0.2, 0.2, 0.2, 0.2];
 	}
 
+
+	// assigning bang names
 	bangsSetup() {
 		this.bangs['human'] = ['sideswept', 'middle parted', 'long'];
 		this.bangs['mouse'] = ['sideswept', 'middle parted', 'long'];
@@ -41,6 +161,8 @@ class Fashionista extends NPC {
 		this.bangs['dog'] = ['sideswept', 'middle parted', 'long'];
 		this.bangs['pig'] = ['sideswept', 'middle parted', 'long'];
 	}
+
+	// hell function for assigning colors
 	colorSetup() {
 
 		// human skin tones

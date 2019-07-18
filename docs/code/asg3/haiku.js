@@ -1,6 +1,9 @@
 /*
- * code/asg3/character.js
- * holds GeneratedCharacter class
+ * code/asg3/haiku.js
+ * holds GeneratedHaiku class
+ * which will generate a haiku based on its axiom
+ * given a set of rules and probabilities
+ * see the note about structure in parser.js
  * written by gigsabyte
  */
 
@@ -15,8 +18,8 @@ class GeneratedHaiku extends GenerativeGrammar {
 
 		this.axiom = [
 		[
-		"four particle",
-		"six  particle",
+		"opening",
+		"question",
 		"ending"
 		],
 		["start 5",
@@ -25,50 +28,39 @@ class GeneratedHaiku extends GenerativeGrammar {
 		];
 
 		this.result = {
-			'haikuoutput' = [3],
-			'soundoutput' = [3]
+			'haikuoutput': [3],
+			'soundoutput': [3]
 		};
 
 	}
 
+	// generate a new haiku and music piece
 	generate() {
 		this.result.text = "";
 
 		for(let i = 0; i < 3; i++) {
-			generateHaikuLine(this.axiom[0][i], i);
-			generateArpeggio(this.axiom[1][i], i);
+			this.generateHaikuLine(this.axiom[0][i], i);
+			this.generateArpeggio(this.axiom[1][i], i);
 		}
 
 		return(this.result);
 	}
 
+	// generate line of haiku
 	generateHaikuLine(ax, index) {
 		let tokens = ax.split(" ");
 
-		if(ax.length > 1) {
-
-			let first = getTokenFromRule(tokens[0]);
-			this.result.haikuoutput[index].push(first);
-
-			let particle = getTokenFromRule(tokens[1]);
-			if(index == 1) {
-				while(particle == this.result.haikuoutput[0][1]) {
-					particle = getTokenFromRule(tokens[1]);
-				}
-			}
-			this.result.haikuoutput[index].push(particle);
-		}
-		else {
-			this.result.haikuoutput[index].push(getTokenFromRule(tokens[0]));
-		}
+		this.result.haikuoutput[index] = (this.getTokenFromRule(tokens[0]));
 
 	}
 
+	// generate sequence of notes
 	generateArpeggio(ax, index) {
 		let tokens = ax.split(" ");
-		let chord = getTokenFromRule(tokens[0]);
+		let chord = this.getTokenFromRule(tokens[0]);
 
-		for(let i = 0; i < parseInt(tokens[1])) {
+		this.result.soundoutput[index] = [];
+		for(let i = 0; i < parseInt(tokens[1]); i++) {
 			this.result.soundoutput[index].push(chord[i]);
 		}
 	}

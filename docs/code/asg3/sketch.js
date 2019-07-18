@@ -1,9 +1,8 @@
 /*
  * code/asg3/sketch.js
  * holds p5 sketch.js code for asg3
- * creates p5 sketch with a generated terrain, music and external html button
- * pressing the button generates a new seed and new terrain
- * also contains controls for moving the camera around the 3d space of the sketch
+ * creates p5 sketch with a player and 2 npcs
+ * interacting with NPCs will cause them to create art for you
  * written by gigsabyte
  */
 
@@ -11,11 +10,11 @@ const asg3 = ( p ) => {
 
   // html elements
   let canvas;
-  let button;
 
   // images
-  let chef;
-  let water;
+  let circle;
+  let fashion;
+  let sing;
 
   // music
   let bgm = [6];
@@ -23,56 +22,56 @@ const asg3 = ( p ) => {
   let lastIndex = 3;
 
   // actors
-  let player = p.createVector(0, 0);
-  let fashionista = p.createVector(0.75, 0.75);
-  let singer = p.createVector(0.5, 0.9);
+  let player = p.createVector(0.25, 0.25);
+  let playerAv;
+  let fashionista = p.createVector(0.5, 0.75);
+  let fashionistaAv;
+  let singer = p.createVector(0.7, 0.25);
+  let singerAv;
 
   // fashionista etc
   let characterParts = [];
 
   // worldState
   let indialogue = false;
+  let currdialog;
+  let fdialog;
+  let sdialog;
 
   // preload textures and at least one music track
   p.preload = function() {
-  	p.soundFormats('mp3', 'ogg');
-  	bgm[0] = p.loadSound('assets/audio/minecraft/dryhands.ogg');
 
-    chef = p.loadImage('assets/imgs/chef.png');
-    water = p.loadImage('assets/imgs/water.gif');
+    // load default sprites
+    circle = p.loadImage('assets/imgs/char/player.png');
+    fashion = p.loadImage('assets/imgs/char/fashionista.png');
+    sing = p.loadImage('assets/imgs/char/singer.png');
 
-    p.loadCharacters();
+    p.loadCharacters(); // load all misc. character creation images
 
   }
 
   // setup
   p.setup = function() {
 
-    // load more music
-    bgm[1] = p.loadSound('assets/audio/minecraft/wethands.ogg');
-    bgm[2] = p.loadSound('assets/audio/minecraft/clark.ogg');
-    bgm[3] = p.loadSound('assets/audio/minecraft/chris.ogg');
-    bgm[4] = p.loadSound('assets/audio/minecraft/oxygene.ogg');
-    bgm[5] = p.loadSound('assets/audio/minecraft/sweden.ogg');
-
     
     // create canvas element and style it
-    canvas = p.createCanvas(960, 540);//(p.windowWidth * 7/10, p.windowWidth* 63/160);
+    canvas = p.createCanvas(p.windowWidth*9/10, p.windowWidth*4/10);//(p.windowWidth * 7/10, p.windowWidth* 63/160);
 
     canvas.style('border', '4px solid #3d3d3d');
     canvas.style('border-radius', '4px');
 
-    p.createP(''); // empty space for formatting
+    let synth = new p5.PolySynth(); // make synth
 
-    // create button and format it
-    button = p.createButton('Generate new terrain');
-    p.stylizeButton(button);
+    // create avatars for player, fashionista and singer
+    playerAv = new Player(circle, this);
+    fashionistaAv = new Fashionista(fashion, playerAv, this, characterParts);
+    singerAv = new Singer(sing, playerAv, synth, this);
 
-    console.log(characterParts);
-    //button.mousePressed(p.makeNew); // call toggleMusic when button is pressed
-
-    // disable draw loop
-    //p.noLoop();
+    // create dialogs between fashionista and singer
+    fdialog = new DialogBox(playerAv, fashionistaAv, this);
+    sdialog = new DialogBox(playerAv, singerAv, this);
+    
+    currdialog = fdialog; // keep track of current dialog
 
   };
 
@@ -82,22 +81,18 @@ const asg3 = ( p ) => {
     // set background color
     p.background(200, 200, 255);
 
+    // if not in dialogue
     if(!indialogue) {
       p.movePlayer();
+      p.drawActors(); // draw circles
     }
-    else {
-      console.log('aaaaa');
+    else { // else
+      currdialog.draw(); // draw current dialog
     }
-
-    p.drawActors();
-
-    p.tint(255, 2, 120);
-    p.image(chef, 0, 0, 400, 400);
-    p.image(water, -100, -100, 100, 100);
-    p.tint(0, 153, 204);
     
   }
 
+  // move player based on keyboard input
   p.movePlayer = function() {
 
     let movement = p.createVector(0, 0);
@@ -119,7 +114,7 @@ const asg3 = ( p ) => {
     }
     movement.normalize();
 
-    movement.mult(0.01);
+    movement.mult(0.025);
 
     player.add(movement);
     
@@ -138,10 +133,12 @@ const asg3 = ( p ) => {
 
   }
 
+  // render circles on the screen
   p.drawActors = function() {
+    p.push();
     let x, y, scale;
 
-    scale = 0.1;
+    scale = 0.25;
 
     // draw player
     x = p.map(player.x, 0, 1, 0, p.width, true);
@@ -154,117 +151,74 @@ const asg3 = ( p ) => {
     x = p.map(fashionista.x, 0, 1, 0, p.width, true);
     y = p.map(fashionista.y, 0, 1, 0, p.height, true);
 
+    p.fill(255, 255, 175);
     p.circle(x, y, scale);
 
     // draw singer
     x = p.map(singer.x, 0, 1, 0, p.width, true);
     y = p.map(singer.y, 0, 1, 0, p.height, true);
+
+    p.fill(175, 255, 225);    
     p.circle(x, y, scale);
+    p.pop();
   }
 
+  // check if dialogue should be started based on distance
   p.startDialogue = function() {
-    let maxdist = 0.05;
+    let maxdist = 0.15;
 
     let dist = p5.Vector.sub(fashionista, player);
 
     if(Math.abs(dist.mag()) < maxdist) {
-      console.log('Conversation started with fashionista');
-
+      currdialog = fdialog;
+      currdialog.enterDialogue();
+      indialogue = true;
       return;
     }
 
     dist = p5.Vector.sub(singer, player);
 
     if(Math.abs(dist.mag()) < maxdist) {
-      console.log('Conversation started with singer');
+      currdialog = sdialog;
+      currdialog.enterDialogue();
+      indialogue = true;
       return;
     }
 
 
   }
 
-  // handle music play/pause
-  p.shuffleMusic = function() {
-    bgmStarted = true;
-
-    let canPlay = false;
-
-    let index;
-
-    while(canPlay == false) {
-      index = Math.floor(Math.random() * bgm.length);
-      if(index == lastIndex) continue;
-      try {
-        bgm[index].play();
-      } catch(error) {
-        continue;
-      }
-      canPlay = true;
-    } 
-    bgm[index].setLoop(false);
-    bgm[index].onended(p.shuffleMusic);
-
-    lastIndex = index;
-  }
-
-  // add CSS style to button
-  p.stylizeButton = function(button) {
-    button.style('background-color', 'white');
-    button.style('border', '4px solid #3d3d3d');
-    button.style('border-radius', '4px');
-    button.style('color', '#3d3d3d');
-    button.style('padding', '20px');
-    button.style('text-align', 'center');
-    button.style('display', 'inline-block');
-    button.style('font-family', 'Consolas,monaco,monospace');
-    button.style('font-size', '16px');
-  }
-
   /* event functions */
 
   // on window resize, resize canvas
   p.windowResized = function() {
-    p.resizeCanvas(960, 540);//(p.windowWidth * 7/10, p.windowWidth * 63/160);
+    p.resizeCanvas(p.windowWidth*9/10, p.windowWidth*4/10);//(p.windowWidth * 7/10, p.windowWidth * 63/160);
   }
 
-  // when the mouse is pressed, enable draw loop
-  p.mousePressed = function() {
-    p.loop();
-    if(!bgmStarted) p.shuffleMusic(); // begin music playback here so chrome doesn't yell at me
-
-  }
-
-  // update stored mouse position when the mouse moves
-  p.mouseMoved = function() {
-    lastX = p.mouseX;
-    lastY = p.mouseY;
-  }
-
-  // rotate the camera when the mouse is dragged
-  p.mouseDragged = function() {
-  }
-
-  // disable draw loop if no mouse/key buttons are pressed
-  p.mouseReleased = function() {
-    if(!p.keyIsPressed) p.noLoop(); 
-  }
-
-  // enable draw loop if key is pressed
+  // check for various key inputs
   p.keyPressed = function() {
-    p.loop();
-    if(p.keyIsDown(32)) {
+    if(p.keyIsDown(32)) { // spacebar
       if(!indialogue) {
         p.startDialogue();
       }
+      else {
+        currdialog.progressText();
+      }
     }
-    //if(!bgmStarted) p.shuffleMusic(); // begin music playback here so chrome doesn't yell at me
+    else if(p.keyIsDown(89)) { // y
+      if(indialogue) {
+        if(currdialog.waitingForPrompt)currdialog.generate();
+      }
+    }
+    else if(p.keyIsDown(78)) { // n
+      if(indialogue) {
+        if(currdialog.waitingForPrompt) indialogue = currdialog.exitDialogue();
+      }
+    }
   }
 
-  // disable draw loop if no mouse/key buttons are pressed
-  p.keyReleased = function() {
-    if(!p.keyIsPressed && !p.mousePressed) p.noLoop();
-  }
-
+  // a hellish function to load all the images
+  // i definitely could have not hardcoded this but sometimes you just take immeasurable L's
   p.loadCharacters = function() {
     characterParts['race'] = [];
     characterParts['race']['human'] = p.loadImage('assets/imgs/char/races/human.png');
@@ -283,37 +237,37 @@ const asg3 = ( p ) => {
     // load bangs
     characterParts['bangs'] = [];
     characterParts['bangs']['human'] = [];
-    characterParts['bangs']['human']['long']      = p.loadImage('assets/imgs/char/bangs/long/human.png');
-    characterParts['bangs']['human']['middle']    = p.loadImage('assets/imgs/char/bangs/middle/human.png');
-    characterParts['bangs']['human']['sideswept'] = p.loadImage('assets/imgs/char/bangs/sideswept/human.png');
+    characterParts['bangs']['human']['long']          = p.loadImage('assets/imgs/char/bangs/long/human.png');
+    characterParts['bangs']['human']['middle parted'] = p.loadImage('assets/imgs/char/bangs/middle/human.png');
+    characterParts['bangs']['human']['sideswept']     = p.loadImage('assets/imgs/char/bangs/sideswept/human.png');
 
     characterParts['bangs']['mouse'] = [];
-    characterParts['bangs']['mouse']['long']      = p.loadImage('assets/imgs/char/bangs/long/mouse.png');
-    characterParts['bangs']['mouse']['middle']    = p.loadImage('assets/imgs/char/bangs/middle/mouse.png');
-    characterParts['bangs']['mouse']['sideswept'] = p.loadImage('assets/imgs/char/bangs/sideswept/mouse.png');
+    characterParts['bangs']['mouse']['long']          = p.loadImage('assets/imgs/char/bangs/long/mouse.png');
+    characterParts['bangs']['mouse']['middle parted'] = p.loadImage('assets/imgs/char/bangs/middle/mouse.png');
+    characterParts['bangs']['mouse']['sideswept']     = p.loadImage('assets/imgs/char/bangs/sideswept/mouse.png');
 
     characterParts['bangs']['cat'] = [];
-    characterParts['bangs']['cat']['long']      = p.loadImage('assets/imgs/char/bangs/long/cat.png');
-    characterParts['bangs']['cat']['middle']    = p.loadImage('assets/imgs/char/bangs/middle/cat.png');
-    characterParts['bangs']['cat']['sideswept'] = p.loadImage('assets/imgs/char/bangs/sideswept/cat.png');
+    characterParts['bangs']['cat']['long']          = p.loadImage('assets/imgs/char/bangs/long/cat.png');
+    characterParts['bangs']['cat']['middle parted'] = p.loadImage('assets/imgs/char/bangs/middle/cat.png');
+    characterParts['bangs']['cat']['sideswept']     = p.loadImage('assets/imgs/char/bangs/sideswept/cat.png');
 
     characterParts['bangs']['dog'] = [];
-    characterParts['bangs']['dog']['long']      = p.loadImage('assets/imgs/char/bangs/long/dog.png');
-    characterParts['bangs']['dog']['middle']    = p.loadImage('assets/imgs/char/bangs/middle/dog.png');
-    characterParts['bangs']['dog']['sideswept'] = p.loadImage('assets/imgs/char/bangs/sideswept/dog.png');
+    characterParts['bangs']['dog']['long']          = p.loadImage('assets/imgs/char/bangs/long/dog.png');
+    characterParts['bangs']['dog']['middle parted'] = p.loadImage('assets/imgs/char/bangs/middle/dog.png');
+    characterParts['bangs']['dog']['sideswept']     = p.loadImage('assets/imgs/char/bangs/sideswept/dog.png');
 
     characterParts['bangs']['pig'] = [];
-    characterParts['bangs']['pig']['long']      = p.loadImage('assets/imgs/char/bangs/long/pig.png');
-    characterParts['bangs']['pig']['middle']    = p.loadImage('assets/imgs/char/bangs/middle/pig.png');
-    characterParts['bangs']['pig']['sideswept'] = p.loadImage('assets/imgs/char/bangs/sideswept/pig.png');
+    characterParts['bangs']['pig']['long']          = p.loadImage('assets/imgs/char/bangs/long/pig.png');
+    characterParts['bangs']['pig']['middle parted']  = p.loadImage('assets/imgs/char/bangs/middle/pig.png');
+    characterParts['bangs']['pig']['sideswept']     = p.loadImage('assets/imgs/char/bangs/sideswept/pig.png');
 
     // load hair
     characterParts['hair'] = [];
-    characterParts['hair']['bun']      = p.loadImage('assets/imgs/char/hair/bun.png');
-    characterParts['hair']['long']     = p.loadImage('assets/imgs/char/hair/long.png');
+    characterParts['hair']['a bun']      = p.loadImage('assets/imgs/char/hair/bun.png');
+    characterParts['hair']['long hair']     = p.loadImage('assets/imgs/char/hair/long.png');
     characterParts['hair']['pigtails'] = p.loadImage('assets/imgs/char/hair/pigtails.png');
-    characterParts['hair']['ponytail'] = p.loadImage('assets/imgs/char/hair/ponytail.png');
-    characterParts['hair']['short']    = p.loadImage('assets/imgs/char/hair/short.png');
+    characterParts['hair']['a ponytail'] = p.loadImage('assets/imgs/char/hair/ponytail.png');
+    characterParts['hair']['short hair']    = p.loadImage('assets/imgs/char/hair/short.png');
 
 
     characterParts['outfit'] = [];
