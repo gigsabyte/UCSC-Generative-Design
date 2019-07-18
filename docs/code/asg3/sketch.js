@@ -1,6 +1,6 @@
 /*
- * code/asg2/sketch.js
- * holds p5 sketch.js code for asg2
+ * code/asg3/sketch.js
+ * holds p5 sketch.js code for asg3
  * creates p5 sketch with a generated terrain, music and external html button
  * pressing the button generates a new seed and new terrain
  * also contains controls for moving the camera around the 3d space of the sketch
@@ -13,24 +13,36 @@ const asg3 = ( p ) => {
   let canvas;
   let button;
 
-  // camera
-  let camerapos;
-  let lookat;
-  let up;
-
-  let lastX;
-  let lastY;
-
+  // images
+  let chef;
+  let water;
 
   // music
   let bgm = [6];
   let bgmStarted = false;
   let lastIndex = 3;
 
+  // actors
+  let player = p.createVector(0, 0);
+  let fashionista = p.createVector(0.75, 0.75);
+  let singer = p.createVector(0.5, 0.9);
+
+  // fashionista etc
+  let characterParts = [];
+
+  // worldState
+  let indialogue = false;
+
   // preload textures and at least one music track
   p.preload = function() {
   	p.soundFormats('mp3', 'ogg');
   	bgm[0] = p.loadSound('assets/audio/minecraft/dryhands.ogg');
+
+    chef = p.loadImage('assets/imgs/chef.png');
+    water = p.loadImage('assets/imgs/water.gif');
+
+    p.loadCharacters();
+
   }
 
   // setup
@@ -43,8 +55,9 @@ const asg3 = ( p ) => {
     bgm[4] = p.loadSound('assets/audio/minecraft/oxygene.ogg');
     bgm[5] = p.loadSound('assets/audio/minecraft/sweden.ogg');
 
+    
     // create canvas element and style it
-    canvas = p.createCanvas(p.windowWidth * 7/10, p.windowWidth* 63/160, p.WEBGL);
+    canvas = p.createCanvas(960, 540);//(p.windowWidth * 7/10, p.windowWidth* 63/160);
 
     canvas.style('border', '4px solid #3d3d3d');
     canvas.style('border-radius', '4px');
@@ -54,15 +67,12 @@ const asg3 = ( p ) => {
     // create button and format it
     button = p.createButton('Generate new terrain');
     p.stylizeButton(button);
+
+    console.log(characterParts);
     //button.mousePressed(p.makeNew); // call toggleMusic when button is pressed
 
-    // camera setup
-    camerapos = p.createVector(width, depth*-4, height*2);
-    lookat = p.createVector(width, 0, height);
-    up = p.createVector(0, 1, 0);
-
     // disable draw loop
-    p.noLoop();
+    //p.noLoop();
 
   };
 
@@ -72,118 +82,105 @@ const asg3 = ( p ) => {
     // set background color
     p.background(200, 200, 255);
 
-    // update camera
-    p.moveCamera();
-
-    if(p.mouseIsPressed) {
-      p.rotateCamera();
+    if(!indialogue) {
+      p.movePlayer();
+    }
+    else {
+      console.log('aaaaa');
     }
 
-    // set up camera in sketch
-    //camera([x], [y], [z], [centerX], [centerY], [centerZ], [upX], [upY], [upZ])
-    p.camera(camerapos.x, camerapos.y, camerapos.z, lookat.x, lookat.y, lookat.z, 0, 1, 0);
-    //perspective([fovy], [aspect], [near], [far])
-    p.perspective(120, 16/9, 0.1, depth*16);
+    p.drawActors();
 
-    // draw terrain
-    wg.draw();
-
-
+    p.tint(255, 2, 120);
+    p.image(chef, 0, 0, 400, 400);
+    p.image(water, -100, -100, 100, 100);
+    p.tint(0, 153, 204);
     
   }
 
-  // camera movement controls
-  // you can tell I wrote this because I didn't realize
-  // that the p5 camera can do this for me
-  p.moveCamera = function() {
+  p.movePlayer = function() {
 
-    // get the view vector
-    let view = lookat.copy();
-    view.sub(camerapos);
-    view.normalize();
+    let movement = p.createVector(0, 0);
 
-    // scale to increase/decrease movement distance
-    view.mult(1);
+    if(p.keyIsDown(87) || p.keyIsDown(p.UP_ARROW)) { // if W or ^
+        movement.y -= 9;
 
-    // get vector perpendicular to the view vector
-    let perp = view.cross(up);
-
-    if(p.keyIsDown(87)) { // if W
-      camerapos.add(view); // dolly camera forward
-      lookat.add(view);
-
-
-    } else if(p.keyIsDown(83)) { // if S
-      camerapos.sub(view); // dolly camera backward
-      lookat.sub(view);
-
+    } 
+    if(p.keyIsDown(83) || p.keyIsDown(p.DOWN_ARROW)) { // if S or v
+        movement.y += 9;
     }
 
-    if(p.keyIsDown(65)) { // if A
-      camerapos.sub(perp); // truck camera left
-      lookat.sub(perp);
+    if(p.keyIsDown(65) || p.keyIsDown(p.LEFT_ARROW)) { // if A or <
+      movement.x -=1;
 
-    }  else if(p.keyIsDown(68)) { // if D
-      camerapos.add(perp); // truck camera right
-      lookat.add(perp);
     }
+    if(p.keyIsDown(68) || p.keyIsDown(p.RIGHT_ARROW)) { // if D or >
+      movement.x += 1;
+    }
+    movement.normalize();
+
+    movement.mult(0.01);
+
+    player.add(movement);
     
-    if(p.keyIsDown(32)) { // if Spacebar
-      camerapos.sub(up); // pedestal camera up
-      lookat.sub(up);
-      console.log(up);
+    if(player.x > 1) {
+      player.x = 1;
     }
-    else if(p.keyIsDown(16)) { // Shift key
-      camerapos.add(up); // pedestal camera down
-      lookat.add(up);
+    else if(player.x < 0) {
+      player.x = 0;
+    }
+    if(player.y > 1) {
+      player.y = 1;
+    }
+    else if(player.y < 0) {
+      player.y = 0;
     }
 
   }
 
-  // camera rotate controls
-  // you can tell I wrote this because I didn't realize
-  // that the p5 camera can do this for me
-  p.rotateCamera = function() {
+  p.drawActors = function() {
+    let x, y, scale;
 
-    // get the current view vector
-    let view = lookat.copy();
-    view.sub(camerapos);
-    view.normalize();
+    scale = 0.1;
 
-    // get the vector perpendicular to the view vector
-    let perp = view.cross(up);
-    perp.normalize();
+    // draw player
+    x = p.map(player.x, 0, 1, 0, p.width, true);
+    y = p.map(player.y, 0, 1, 0, p.height, true);
+    scale = p.map(scale, 0, 1, 0, p.height, true);
 
-    // set the view vector to the up vector (just to reuse the variable)
-    view = up.copy();
+    p.circle(x, y, scale);
 
-    // scale down the vecs
-    view.mult(0.1);
-    perp.mult(0.1);
+    // draw fashionista
+    x = p.map(fashionista.x, 0, 1, 0, p.width, true);
+    y = p.map(fashionista.y, 0, 1, 0, p.height, true);
 
-    // find how far the mouse moved in the last frame
-    let xdiff = p.mouseX - lastX;
-    let ydiff = p.mouseY - lastY;
+    p.circle(x, y, scale);
 
-    // scale vectors by the differences
-    perp.mult(xdiff);
-    view.mult(ydiff);
-
-    // combine x and y differences
-    view.add(perp);
-
-    // add to lookat position
-    lookat.add(view);
+    // draw singer
+    x = p.map(singer.x, 0, 1, 0, p.width, true);
+    y = p.map(singer.y, 0, 1, 0, p.height, true);
+    p.circle(x, y, scale);
   }
 
-  // generate new seed and new terrain from seed
-  p.makeNew = function() {
-    seed = Math.round(Math.random() * 1000);
-    console.log(seed);
+  p.startDialogue = function() {
+    let maxdist = 0.05;
 
-    let p5 = wg.p5;
+    let dist = p5.Vector.sub(fashionista, player);
 
-    wg = new WorldGenerator(width, height, depth, seed, textures, p5);
+    if(Math.abs(dist.mag()) < maxdist) {
+      console.log('Conversation started with fashionista');
+
+      return;
+    }
+
+    dist = p5.Vector.sub(singer, player);
+
+    if(Math.abs(dist.mag()) < maxdist) {
+      console.log('Conversation started with singer');
+      return;
+    }
+
+
   }
 
   // handle music play/pause
@@ -227,7 +224,7 @@ const asg3 = ( p ) => {
 
   // on window resize, resize canvas
   p.windowResized = function() {
-    p.resizeCanvas(p.windowWidth * 7/10, p.windowWidth * 63/160);
+    p.resizeCanvas(960, 540);//(p.windowWidth * 7/10, p.windowWidth * 63/160);
   }
 
   // when the mouse is pressed, enable draw loop
@@ -245,9 +242,6 @@ const asg3 = ( p ) => {
 
   // rotate the camera when the mouse is dragged
   p.mouseDragged = function() {
-    p.rotateCamera();
-    lastX = p.mouseX;
-    lastY = p.mouseY;
   }
 
   // disable draw loop if no mouse/key buttons are pressed
@@ -258,12 +252,83 @@ const asg3 = ( p ) => {
   // enable draw loop if key is pressed
   p.keyPressed = function() {
     p.loop();
-    if(!bgmStarted) p.shuffleMusic(); // begin music playback here so chrome doesn't yell at me
+    if(p.keyIsDown(32)) {
+      if(!indialogue) {
+        p.startDialogue();
+      }
+    }
+    //if(!bgmStarted) p.shuffleMusic(); // begin music playback here so chrome doesn't yell at me
   }
 
   // disable draw loop if no mouse/key buttons are pressed
   p.keyReleased = function() {
     if(!p.keyIsPressed && !p.mousePressed) p.noLoop();
+  }
+
+  p.loadCharacters = function() {
+    characterParts['race'] = [];
+    characterParts['race']['human'] = p.loadImage('assets/imgs/char/races/human.png');
+    characterParts['race']['mouse'] = p.loadImage('assets/imgs/char/races/mouse.png');
+    characterParts['race']['cat']   = p.loadImage('assets/imgs/char/races/cat.png');
+    characterParts['race']['dog']   = p.loadImage('assets/imgs/char/races/dog.png');
+    characterParts['race']['pig']   = p.loadImage('assets/imgs/char/races/pig.png');
+
+    characterParts['eyes'] = [];
+    characterParts['eyes']['bored']    = p.loadImage('assets/imgs/char/eyes/bored.png');
+    characterParts['eyes']['pleasant'] = p.loadImage('assets/imgs/char/eyes/pleasant.png');
+    characterParts['eyes']['shy']      = p.loadImage('assets/imgs/char/eyes/shy.png');
+    characterParts['eyes']['sneaky']   = p.loadImage('assets/imgs/char/eyes/sneaky.png');
+    characterParts['eyes']['wild']     = p.loadImage('assets/imgs/char/eyes/wild.png');
+
+    // load bangs
+    characterParts['bangs'] = [];
+    characterParts['bangs']['human'] = [];
+    characterParts['bangs']['human']['long']      = p.loadImage('assets/imgs/char/bangs/long/human.png');
+    characterParts['bangs']['human']['middle']    = p.loadImage('assets/imgs/char/bangs/middle/human.png');
+    characterParts['bangs']['human']['sideswept'] = p.loadImage('assets/imgs/char/bangs/sideswept/human.png');
+
+    characterParts['bangs']['mouse'] = [];
+    characterParts['bangs']['mouse']['long']      = p.loadImage('assets/imgs/char/bangs/long/mouse.png');
+    characterParts['bangs']['mouse']['middle']    = p.loadImage('assets/imgs/char/bangs/middle/mouse.png');
+    characterParts['bangs']['mouse']['sideswept'] = p.loadImage('assets/imgs/char/bangs/sideswept/mouse.png');
+
+    characterParts['bangs']['cat'] = [];
+    characterParts['bangs']['cat']['long']      = p.loadImage('assets/imgs/char/bangs/long/cat.png');
+    characterParts['bangs']['cat']['middle']    = p.loadImage('assets/imgs/char/bangs/middle/cat.png');
+    characterParts['bangs']['cat']['sideswept'] = p.loadImage('assets/imgs/char/bangs/sideswept/cat.png');
+
+    characterParts['bangs']['dog'] = [];
+    characterParts['bangs']['dog']['long']      = p.loadImage('assets/imgs/char/bangs/long/dog.png');
+    characterParts['bangs']['dog']['middle']    = p.loadImage('assets/imgs/char/bangs/middle/dog.png');
+    characterParts['bangs']['dog']['sideswept'] = p.loadImage('assets/imgs/char/bangs/sideswept/dog.png');
+
+    characterParts['bangs']['pig'] = [];
+    characterParts['bangs']['pig']['long']      = p.loadImage('assets/imgs/char/bangs/long/pig.png');
+    characterParts['bangs']['pig']['middle']    = p.loadImage('assets/imgs/char/bangs/middle/pig.png');
+    characterParts['bangs']['pig']['sideswept'] = p.loadImage('assets/imgs/char/bangs/sideswept/pig.png');
+
+    // load hair
+    characterParts['hair'] = [];
+    characterParts['hair']['bun']      = p.loadImage('assets/imgs/char/hair/bun.png');
+    characterParts['hair']['long']     = p.loadImage('assets/imgs/char/hair/long.png');
+    characterParts['hair']['pigtails'] = p.loadImage('assets/imgs/char/hair/pigtails.png');
+    characterParts['hair']['ponytail'] = p.loadImage('assets/imgs/char/hair/ponytail.png');
+    characterParts['hair']['short']    = p.loadImage('assets/imgs/char/hair/short.png');
+
+
+    characterParts['outfit'] = [];
+    characterParts['outfit']['chef']      = p.loadImage('assets/imgs/char/outfits/chef.png');
+    characterParts['outfit']['detective'] = p.loadImage('assets/imgs/char/outfits/detective.png');
+    characterParts['outfit']['hero']      = p.loadImage('assets/imgs/char/outfits/hero.png');
+    characterParts['outfit']['mafioso']   = p.loadImage('assets/imgs/char/outfits/mafioso.png');
+    characterParts['outfit']['plumber']   = p.loadImage('assets/imgs/char/outfits/plumber.png');
+
+    characterParts['hat'] = [];
+    characterParts['hat']['chef']      = p.loadImage('assets/imgs/char/hats/chef.png');
+    characterParts['hat']['detective'] = p.loadImage('assets/imgs/char/hats/detective.png');
+    characterParts['hat']['hero']      = p.loadImage('assets/imgs/char/hats/hero.png');
+    characterParts['hat']['mafioso']   = p.loadImage('assets/imgs/char/hats/mafioso.png');
+    characterParts['hat']['plumber']   = p.loadImage('assets/imgs/char/hats/plumber.png');
   }
 
 };
