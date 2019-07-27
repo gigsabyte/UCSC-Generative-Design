@@ -1,0 +1,62 @@
+<html lang="en">
+  <head>
+    <link rel="stylesheet" href="styles.css">
+    <meta charset="utf-8"/>
+    <title> Gigi Bachtel's CMPM 147 Portfolio </title>
+
+    <!-- Include external libraries -->
+    <script src = "lib/p5.js"></script>
+    <script src = "lib/p5.sound.js"></script>
+    <script src = "lib/p5.dom.js"></script>
+
+    <!-- Include ASG1 code -->
+    <script src = "code/asg3/sketch.js"></script>
+    <script src = "code/asg3/dialog.js"></script>
+    <script src = "code/asg3/player.js"></script>
+    <script src = "code/asg3/npc.js"></script>
+    <script src = "code/asg3/fashionista.js"></script>
+    <script src = "code/asg3/singer.js"></script>
+    <script src = "code/asg3/parser.js"></script>
+    <script src = "code/asg3/character.js"></script>
+    <script src = "code/asg3/haiku.js"></script>
+
+
+    <!-- Include external libraries -->
+    <script src = "code/eventHandlers.js"></script>
+    <script src = "code/asg3/main.js"></script>
+  </head>
+
+  <body onload="main()">
+
+    <div class="pagecontent">
+      <h1>CMPM 147, Summer 2019</h1>
+      <h2>Assignment 3: Interactive NPC Artist with Generative Grammars</h2>
+
+      <div id = "Play music"></div>
+      <div><p></p><div id="asg3"></div></div>
+      <p></p>
+      <h2>Controls: WASD/arrow keys to navigate, spacebar to interact/progress text, Y and N to answer prompts</h2>
+      <p></p>
+      <p>An abstracted nondeterministic grammar is expanded into two different forms of 'art': a character generator and a musical haiku generator.</p>
+      <p>The character generator uses an axiom formatted with a markup language similar to HTML, with &lt;tags&gt; denoting a word to be replaced.
+         The visual component of the character generator is based on matching the character's traits generated from its &lt;tags&gt;.</p>
+      <p> The musical haiku generator uses a much simpler format where each line of the axiom is either the number of syllables it should contain
+         (for the haiku) or the type and length of its tune (for the music).</p>
+      <button id="showgif"> Show .gif representation</button>
+      <p></p>
+      <img src="assets/imgs/asg3.gif" id="asg2gif" class="gif"></img>  
+      <h2>Past assignments:</h2>
+      <p><a href="asg2.html">Terrain Generation with Perlin Noise</a></p>
+      <p><a href="asg1.html">Music Visualizer with Particle System</a></p>
+      
+      
+      
+
+    </div>
+
+      
+
+  </body>
+  
+
+</html>
