@@ -16,6 +16,11 @@ h2 {
   font-family: Consolas,monaco,monospace;
   font-size: 20;
 }
+h3 {
+  color: #3d3d3d;
+  font-family: Consolas,monaco,monospace;
+  font-size: 12;
+}
 p {
   color: #3d3d3d;
   font-family: Consolas,monaco,monospace;
