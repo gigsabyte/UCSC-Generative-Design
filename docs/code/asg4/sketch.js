@@ -140,7 +140,7 @@ const asg4 = ( p ) => {
       let text = "Generation " + gen;
       if(trophyCar) {
         trophyCar.draw(deltaTime);
-        text += ("\nGenration " + (gen -1) +"'s winner: " + trophyCar.name +"\nwith a fitness of " + bestFit);
+        text += ("\nGeneration " + (gen -1) +"'s winner: " + trophyCar.name +"\nwith a fitness of " + bestFit);
       } 
       p.textFont(font);
       p.fill(81);
