@@ -9,46 +9,43 @@
     <script src = "lib/p5.sound.js"></script>
     <script src = "lib/p5.dom.js"></script>
 
-    <!-- Include ASG1 code -->
-    <script src = "code/asg3/sketch.js"></script>
-    <script src = "code/asg3/dialog.js"></script>
-    <script src = "code/asg3/player.js"></script>
-    <script src = "code/asg3/npc.js"></script>
-    <script src = "code/asg3/fashionista.js"></script>
-    <script src = "code/asg3/singer.js"></script>
-    <script src = "code/asg3/parser.js"></script>
-    <script src = "code/asg3/character.js"></script>
-    <script src = "code/asg3/haiku.js"></script>
+    <!-- Include ASG4 code -->
+    <script src = "code/asg4/sketch.js"></script>
+    <script src = "code/asg4/ga.js"></script>
+    <script src = "code/asg4/race/car.js"></script>
+    <script src = "code/asg4/race/trophycar.js"></script>
+    <script src = "code/asg4/race/terrain.js"></script>
+    <script src = "code/asg4/race/race.js"></script>
+    <script src = "code/asg4/starter/box2d-helper.js"></script>
+    <script src = "code/asg4/starter/box2d-html5.js"></script>
 
 
     <!-- Include external libraries -->
     <script src = "code/eventHandlers.js"></script>
-    <script src = "code/asg3/main.js"></script>
+    <script src = "code/asg4/main.js"></script>
   </head>
 
   <body onload="main()">
 
     <div class="pagecontent">
       <h1>CMPM 147, Summer 2019</h1>
-      <h2>Assignment 3: Interactive NPC Artist with Generative Grammars</h2>
+      <h2>Assignment 4: Evolving Cars</h2>
 
       <div id = "Play music"></div>
-      <div><p></p><div id="asg3"></div></div>
+      <div><p></p><div id="asg4"></div></div>
       <p></p>
-      <h2>Controls: WASD/arrow keys to navigate, spacebar to interact/progress text, Y and N to answer prompts</h2>
+      <p>A race between 10 cars. After the end of every race, the each individual in the population of cars is evaluated for its "fitness" (how far it traveled). A mating pool is chosen in a roulette wheel fashion, where a car's chance of being chosen is proportional to its fitness. The cars then "reproduce" by creating children with a mix of both parents' genes (a two-point crossover). Each child's genes then have a 10% chance of mutating to prevent stagnation.</p>
+      <p>Then the new generation races again, repeating the process ad infinitum. Over time, the cars will (hopefully) evolve into better racers while you listen to Eurobeat.</p>
       <p></p>
-      <p>An abstracted nondeterministic grammar is expanded into two different forms of 'art': a character generator and a musical haiku generator.</p>
-      <p>The character generator uses an axiom formatted with a markup language similar to HTML, with &lt;tags&gt; denoting a word to be replaced.
-         The visual component of the character generator is based on matching the character's traits generated from its &lt;tags&gt;.</p>
-      <p> The musical haiku generator uses a much simpler format where each line of the axiom is either the number of syllables it should contain
-         (for the haiku) or the type and length of its tune (for the music).</p>
+      <h3><i>I hope I never have to type the words "car" and "reproduce" in the same sentence again.</i></h3>
+
       <button id="showgif"> Show .gif representation</button>
       <p></p>
-      <img src="assets/imgs/asg3.gif" id="asg2gif" class="gif"></img>  
+      <img src="assets/imgs/asg4.gif" id="asg2gif" class="gif"></img>  
       <h2>Past assignments:</h2>
+      <p><a href="asg3.html">Interactive NPC Artist with Generative Grammars</a></p>
       <p><a href="asg2.html">Terrain Generation with Perlin Noise</a></p>
-      <p><a href="asg1.html">Music Visualizer with Particle System</a></p>
-      
+      <p><a href="asg1.html">Music Visualizer with Particle System</a></p>     
       
       
 
