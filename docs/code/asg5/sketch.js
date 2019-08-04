@@ -239,7 +239,7 @@ const asg5 = ( p ) => {
   // on key press
   p.keyPressed = function() {
 
-    if(p.keyCode === 32 && canGenerate) { // spacebar
+    if(p.keyCode === 32) { // spacebar
         _midiPlayer.isPlaying = !_midiPlayer.isPlaying;
 
         if (_midiPlayer.isPlaying) {
@@ -254,7 +254,6 @@ const asg5 = ( p ) => {
 }
   // toggle play/pause of music
   p.togglePause = function() {
-    if(canGenerate) {
         _midiPlayer.isPlaying = !_midiPlayer.isPlaying;
 
         if (_midiPlayer.isPlaying) {
@@ -264,7 +263,6 @@ const asg5 = ( p ) => {
         else {
             _midiPlayer.pause();
             play.html('Play song');
-        }
     }
   }
 
