@@ -1,3 +1,9 @@
+/*
+ * code/asg5/midi/midiPlayer.js
+ * holds MidiPlayer class, which parses, converts,
+ * plays and visualizes midi files
+ * written by lucasfne, modified by gigsabyte
+ */
 
 let _midiPlayer;
 

@@ -1,7 +1,7 @@
 /*
  * markov.js
- * holds the MarkovChain class for evolving a population between generations
- * as well as the Individual class that makes up the population
+ * holds the MarkovChain class, which can be trained based on a sample set of strings in order to
+ * generate a string in line with the sample set
  * written by gigsabyte, based on the model provided by lucasnfe:
  * https://github.com/lucasnfe/Generative-Design/blob/master/Examples/L08%20-%20Markov%20Models/sketch.js
  */
@@ -13,15 +13,14 @@ class MarkovChain {
         this.pd = null;
     }
 
+    // train the chain based on a sample set
     train(sampleset) {
         this.sampleset = sampleset;
-        
+
         let pd = {};
 
-        console.log(pd);
-
         // load all states
-        // go through every sample
+        // by going through every sample
         for(let sample of sampleset) {
 
             sample = "# " + sample + " #"; // add beginning and end markers
@@ -33,14 +32,13 @@ class MarkovChain {
             }
         }
 
-        console.log(pd);
-
         // estimate probability distribution
         for(let sample of sampleset) {
             sample = "# " + sample + " #"; // add beginning and end markers
             
             let steps = sample.split(" "); // split string into steps
 
+            // log frequency of every state's next state
             for(let i = 0; i < steps.length - 1; i++) {
                 let cstate = steps[i];
                 if(cstate in pd) {
@@ -50,33 +48,33 @@ class MarkovChain {
                     if(!(nstate in pd[cstate])) {
                         pd[cstate][nstate] = Math.floor(1.0);
                     }
-                    else pd[cstate][nstate] = pd[cstate][nstate] + 1;
-                    //console.log(pd[cstate][nstate]);
-                    
+                    else pd[cstate][nstate] = pd[cstate][nstate] + 1;                    
                 }
             }
         }
 
-        console.log(pd);
 
         // normalize probability distribution
         for(let cstate in pd) {
             let ctotal = 0;
 
+            // find total probability
             for(let nstate in pd[cstate]) {
                 ctotal += pd[cstate][nstate];
             }
 
+            // normalize each probability based on total
             for(let nstate in pd[cstate]) {
                 pd[cstate][nstate] /= ctotal;
             }
         }
 
-        console.log(pd);
-
+        // set probability distribution
         this.pd = pd;
     }
 
+    // generate string based on probability distribution
+    // pre-req: train() called first with a sample set
     generate() {
         let nstate = this.sample("#");
 
@@ -95,6 +93,7 @@ class MarkovChain {
         return mid;
     }
 
+    // grab a random sample state based on a previous state
     sample(istate) {
         let prob = Math.random();
 
