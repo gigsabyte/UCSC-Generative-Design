@@ -56,8 +56,7 @@ const asg5 = ( p ) => {
     canvas.style('border', '4px solid #3d3d3d');
     canvas.style('border-radius', '4px');
 
-    msg = p.createP('Click on the composer buttons to add them to the sampleset.');
-      p.createP('Once there is at least one composer in your sampleset, you can generate a song.'); 
+    msg = p.createP('Click on the composer buttons to add them to the sampleset. Once there is at least one composer in your sampleset, you can generate a song.'); 
       p.createP('Press the play button or use the spacebar to play/pause generated songs.'); // empty space for formatting
 
 

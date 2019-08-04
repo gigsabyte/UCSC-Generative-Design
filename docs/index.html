@@ -32,10 +32,17 @@
       <div id = "Play music"></div>
       <div><p></p><div id="asg5"></div></div>
       <p></p>
-      <p>A race between 10 cars. After the end of every race, the each individual in the population of cars is evaluated for its "fitness" (how far it traveled). A mating pool is chosen in a roulette wheel fashion, where a car's chance of being chosen is proportional to its fitness. The cars then "reproduce" by creating children with a mix of both parents' genes (a two-point crossover). Each child's genes then have a 10% chance of mutating to prevent stagnation.</p>
-      <p>Then the new generation races again, repeating the process ad infinitum. Over time, the cars will (hopefully) evolve into better racers while you listen to Eurobeat.</p>
+      <p>--------------------------------------------------------------------------------------------------------------------------------------------------</p>
       <p></p>
-      <h3><i>I hope I never have to type the words "car" and "reproduce" in the same sentence again.</i></h3>
+      <p>Markov generation of classical music based on the works of Johann Sebastian Bach, Johannes Brahms, Domenico Sarlatti, and Pyotr Ilyich Tchaikovsky.</p>
+      <p>When a composer is added to the sample set, a MIDI collection of their music is translated to an array of plaintext strings. This array of strings is
+      then used to train the Markov generator based on the frequency of notes (or rests) appearing in sequence. </p>
+      <p>For example, every the generator observes a quarter note of A5, it adds the next note after it to a list of valid notes to appear after A5. After all notes
+      have been processed, the frequency of each note that comes after A5 is then normalized to a value between 0 and 1. If the Markov chain generates the note A5,
+      it then chooses the next note to generate based on these frequencies.</p>
+      <p>Markov chains work best with large volumes of data that is relatively specific. Because of this, you might notice that adding more composers actually makes the music sound worse.</p>
+      <p></p>
+      <h3><i>Not that classical music was ever good to begin with...</i></h3>
 
       <button id="showgif"> Show .gif representation</button>
       <p></p>
