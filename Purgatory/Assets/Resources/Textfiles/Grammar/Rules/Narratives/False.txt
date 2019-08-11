@@ -1,0 +1,10 @@
+falsenarrative
+defendant:Richard Nixon,Ricky,Barry,Don-chan the drum
+timeframe:15 minutes before,3 minutes after,during,10 minutes after
+witness:Doug,Sheryl,Cindy,Dolly,Bob
+victimaction:jogging,working,painting,on a walk
+witnessaction:jogging,working,painting,on a walk
+victim:Jeb Bush,Shaggy,a hamster,Rasputin
+murder:stabbed,shot,bludgeoned,killed,impaled
+weapon:gun,knife,hammer,stone,clock
+location:the pier,the mall,the park,the amusement park

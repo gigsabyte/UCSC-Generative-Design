@@ -1,0 +1,18 @@
+camera;0
+line;Daphne;Hey!!! That's a contradiction right there!
+line;Daphne;It's very, uh.... contradictory.
+camera;1
+line;Defendant;How so?
+camera;2
+line;Prosecco;There isn't one. She's just being an idiot.
+line;Prosecco;Defense, I'm going to have to penalize you for this.
+losehealth;32
+camera;0
+line;Daphne;Hey, cut me some slack! I'm trying my best out here!
+camera;2
+line;Prosecco;...
+line;Prosecco;No. In fact, I'm going to give you another penalty just for saying that.
+losehealth;16
+camera;0
+line;Daphne;You're not even the judge....
+end

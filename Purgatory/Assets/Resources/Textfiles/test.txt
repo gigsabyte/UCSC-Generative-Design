@@ -1,0 +1,23 @@
+camera;0
+line;Daphne;Alright, time to get this trial on the road!
+camera;2
+line;Prosecco;What does that even mean.
+camera;0
+line;Daphne;It means whoever was writing this got tired of looking at the same test dialogue, babe.
+camera;2
+line;Prosecco;I have no idea what you're talking about. 
+line;Prosecco;A-and don't call me that in court!
+camera;0
+line;Daphne;Call you what, babe?
+camera;2
+line;Prosecco;BABE!
+camera;0
+line;Daphne;Oho? Flirting in court, are we?
+line;Prosecco;I'm going to kill you.
+camera;0
+line;Daphne;Anyway...
+branch;generated;False
+camera;1
+line;Witness;Y'all are too much. I'm going to testify now, 'kay?
+testimony;test-imony
+end

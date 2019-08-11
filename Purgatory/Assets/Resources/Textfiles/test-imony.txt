@@ -1,0 +1,7 @@
+Witness
+test 1
+test 2
+truth;The birdnapping happened at a charity dinner.
+lie;I'm real important, so I was sitting with the other bigwigs.;Some Guy
+truth;Anyway, this guy just came up and stole my turkey dinner!
+truth;Then he just ran away like it was nothing.
