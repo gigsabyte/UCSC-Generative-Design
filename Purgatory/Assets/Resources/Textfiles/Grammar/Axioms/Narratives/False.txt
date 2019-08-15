@@ -2,15 +2,17 @@ camera;0
 line;Daphne;So, what's the story?
 camera;2
 line;Prosecco;Here's how it went down.
-line;Prosecco;The defendant, <defendant>, was spotted at <location> <timeframe> the murder.
-line;Prosecco;The victim, <victim>, was <victimaction> there.
-line;Prosecco;The defendant apparently <murder> the victim with a <weapon>.
+line;Prosecco;The victim, <victim>, was <victimaction> at <location>.
+line;Prosecco;The defendant, <defendant>, was apparently nearby.
+line;Prosecco;A witness, <witness1>, claims to have seen the defendant <timeframe> the murder.
+line;Prosecco;This witness was <witnessaction> at the time.
+camera;0
+line;Daphne;And?
+camera;2
+line;Prosecco;The victim was <murder> with a <weapon>.
 camera;0
 line;Daphne;Woah, gross!
-cammera;2
-line;Prosecco;The details are in the Court Record.<witness2> will provide an autopsy report.
-line;Prosecco;<witness1> happened to be <witnessaction1> nearby, and saw the whole thing. They will testify regarding this matter.
-line;Prosecco;It also appears that the defendant had a motive for their crime.
-line;Prosecco;<witness3> will be able to shed some insight on the matter.
+camera;2
+line;Prosecco;Another witness, <witness2>, claims to have directly witnessed the murder.
 unbranch
 end

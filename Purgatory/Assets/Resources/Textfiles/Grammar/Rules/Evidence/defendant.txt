@@ -1,0 +1,5 @@
+defendant
+defendantage:20,35,50,75
+defendantprofession:salesperson,waitperson,con artist,accountant,spy,chef,farmer,teacher,doctor,veteranarian,firefighter,barber
+defendanthair:brown,blonde,black,red,blue,green,yellow,purple,orange,white
+defendantbuild:scrawny,muscular,heavy

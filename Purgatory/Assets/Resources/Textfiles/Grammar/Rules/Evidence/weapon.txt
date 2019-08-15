@@ -1,0 +1,4 @@
+weapon
+size:microscopic,very small,medium size,fairly large,comically oversized
+material:wood,porcelain,glass,steel,hemp,bronze,titanium,foam,plastic
+age:brand-new,well-worn,broken

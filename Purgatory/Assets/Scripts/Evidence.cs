@@ -15,7 +15,7 @@ public class Evidence : MonoBehaviour
     string desc = "";
 
     [SerializeField]
-    Text name;
+    public Text name;
 
     [SerializeField]
     Image visual;
@@ -24,17 +24,22 @@ public class Evidence : MonoBehaviour
     Sprite test;
 
     [SerializeField]
-    EvidenceDatabase database;
+    public EvidenceDatabase database;
 
     [SerializeField]
     EvidenceManager manager;
+
+    public Dictionary<string, string> details = new Dictionary<string, string>();
 
     bool loadedEvidence = false;
 
     // Start is called before the first frame update
     void OnEnable()
     {
-        LoadEvidence();
+        //LoadEvidence();
+
+        
+        //SetVisual(spr);
     }
 
     public void SetName(string n)
@@ -44,7 +49,20 @@ public class Evidence : MonoBehaviour
 
     public void SetDescription(string description)
     {
-        desc = description;
+        bool highlighting = false;
+        desc = "";
+
+        foreach (char letter in description.ToCharArray())
+        {
+            if (letter == '@')
+            {
+                highlighting = !highlighting;
+                continue;
+            }
+            if (highlighting) desc += "<color=lightblue>" + letter + "</color>";
+            else desc += letter;
+        }
+        highlighting = false;
     }
 
     public void SetVisual(Sprite spr)
@@ -52,10 +70,45 @@ public class Evidence : MonoBehaviour
         visual.sprite = spr;
     }
 
+    public void SetVisual(string name)
+    {
+        Sprite spr = database.getSpriteByName(name);
+        visual.sprite = spr;
+    }
+
     public void DisplayDescription()
     {
         descriptionText.text = desc;
         manager.setCurrentEvidence(name.text);
+    }
+
+    public bool CheckDetail(string det, string[] set)
+    {
+        //if (det == name.text) return true;
+
+        List<string> valList = new List<string>(details.Values);
+        List<string> keyList = new List<string>(details.Keys);
+
+        for(int i = 0; i < valList.Count; i++)
+        {
+            string key = keyList[i];
+            string val = valList[i];
+            Debug.Log("Comparing " + det + " and " + val);
+            if (val == det)
+            {
+                set[0] = key;
+                set[1] = val;
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public void AddDetail(string key, string val)
+    {
+        if (details.ContainsKey(key)) details[key] = val;
+        else details.Add(key, val);
     }
 
     public void LoadEvidence()

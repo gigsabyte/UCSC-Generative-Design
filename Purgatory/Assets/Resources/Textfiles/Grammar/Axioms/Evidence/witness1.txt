@@ -1,0 +1,3 @@
+A <witness1age> year old <witness1profession>.
+Was [witnessaction] at [location].
+Spotted the witness [timeframe] the murder.

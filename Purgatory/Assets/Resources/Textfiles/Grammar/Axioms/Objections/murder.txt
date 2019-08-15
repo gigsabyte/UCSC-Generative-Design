@@ -1,0 +1,19 @@
+camera;0
+line;Daphne;Hang on!
+camera;1
+line;[witness2];W-what?
+camera;0
+line;Daphne;So you say the defendant <lie> the victim?
+line;Daphne;That's patently false! The victim was <truth>!
+camera;1
+line;[witness2];But I swear I...
+camera;2
+line;Prosecco;(Nice going, Daphne!)
+line;Prosecco;[witness2], can you explain why you lied about the manner in which the victim was killed?
+camera;1
+line;[witness2];I-it wasn't that important, I swear!!
+camera;0
+line;Daphne;Of course it's important! It's how the victim died!!!
+camera;1
+line;[witness2];Sh-shut up!!!!
+advance

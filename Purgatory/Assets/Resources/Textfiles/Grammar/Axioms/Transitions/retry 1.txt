@@ -1,0 +1,14 @@
+camera;1
+line;[witness2];A-anyway, I'm going to continue my testimony.
+camera;0
+line;Daphne;...
+line;Daphne;I really, really hate this.
+line;Daphne;Testimony isn't like baseball. There's no striking out. 
+line;Daphne;You should be out of this courtroom and in jail right now!
+camera;2
+line;Prosecco;The defense's informed and correct opinion has been duly noted.
+line;Prosecco;Witness, please continue your testimony.
+camera;1
+line;[witness2];Literally what I just said!
+line;[witness2];Anyway...
+testimony;<testimony>

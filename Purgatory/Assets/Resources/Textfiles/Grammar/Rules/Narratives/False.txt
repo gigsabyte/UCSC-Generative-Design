@@ -1,10 +1,11 @@
 falsenarrative
-defendant:Richard Nixon,Ricky,Barry,Don-chan the drum
-timeframe:15 minutes before,3 minutes after,during,10 minutes after
-witness:Doug,Sheryl,Cindy,Dolly,Bob
-victimaction:jogging,working,painting,on a walk
-witnessaction:jogging,working,painting,on a walk
-victim:Jeb Bush,Shaggy,a hamster,Rasputin
-murder:stabbed,shot,bludgeoned,killed,impaled
-weapon:gun,knife,hammer,stone,clock
-location:the pier,the mall,the park,the amusement park
+defendant:Debra Fendant,Denton Fendant,Hikiko Tsugeyama,Ana Cusado,Alberto Kuzito,Benjamin Klagte,Angel Klagte,Desiree Fendeur,Dylan Ynydd
+timeframe:2 hours before,30 minutes before,5 minutes before,10 minutes after,an hour after
+witness1:Whitney Ness,Theodore Moin,Shousuke Hitokawa,Terry Mone,Sean Tyst,Tess Tigo,Tunni Staja,Mita Zeuge,Declan Swia
+witness2:Whitney Ness,Theodore Moin,Shousuke Hitokawa,Terry Mone,Sean Tyst,Tess Tigo,Tunni Staja,Mita Zeuge,Declan Swia
+victimaction:having lunch,working,painting,walking home,on a tour,meeting a date
+witnessaction:having lunch,working,painting,walking home,on a tour,meeting a date
+victim:John Doe,Jane Doe,Piet Pompies,Jan Alleman,Fulan AlFulani,Zhang San,Taro Yamada,Pierre et Paul,Max Mustermann,Pinco Pallino,Juan Perez
+murder:stabbed,shot,bludgeoned,pinched,slapped,suffocated
+weapon:knife,javelin,hammer,wrench,clock,wine bottle,foam finger
+location:the pier,the mall,the park,City Hall,the airport,the bus station,the grocery store

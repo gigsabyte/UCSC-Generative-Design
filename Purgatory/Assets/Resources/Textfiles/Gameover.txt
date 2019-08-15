@@ -1,0 +1,10 @@
+bgm;Beginning
+camera;0
+line;Daphne;Hey, Prosecco...?
+line;Daphne;I feel a bit... sleepy all of a sudden...
+camera;2
+line;Prosecco;Daphne!
+line;Prosecco;Try to hang in there!!
+camera;0
+line;Daphne;Sorry, babe...
+deathend

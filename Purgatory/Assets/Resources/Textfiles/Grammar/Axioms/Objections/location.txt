@@ -1,0 +1,19 @@
+camera;0
+line;Daphne;Hang on!
+camera;1
+line;[witness1];W-what?
+camera;0
+line;Daphne;So you were at <lie> [timeframe] the murder?
+line;Daphne;That sounds like a big fat lie to me! According to the Court Record, you were actually at <truth>!
+camera;1
+line;[witness1];W-well...
+camera;2
+line;Prosecco;(Nice going, Daphne!)
+line;Prosecco;[witness1], can you explain why you lied to the court about the location where you witnessed the defendant?
+camera;1
+line;[witness1];I-it wasn't that important, I swear!!
+camera;0
+line;Daphne;Of course it's important! Who's to say you were even at the scene of the murder?!
+camera;1
+line;[witness1];Sh-shut up!!!!
+advance

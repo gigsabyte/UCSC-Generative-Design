@@ -17,7 +17,7 @@ public class EvidenceManager : MonoBehaviour
     StateManager sm;
 
     [SerializeField]
-    GameObject evidencebutton;
+    public GameObject evidencebutton;
 
     [SerializeField]
     GameObject presentbutton;
@@ -28,29 +28,23 @@ public class EvidenceManager : MonoBehaviour
     [SerializeField]
     Text currDesc;
 
+    [SerializeField]
+    public Evidence[] evidenceList;
+
     bool displayEvidence = false;
 
     public string currentEvidence = "none";
+
+    Evidence currev;
 
     // Start is called before the first frame update
     void Start()
     {
         ep.SetActive(false);
         presentbutton.SetActive(false);
+        currev = null;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        if(Input.GetKeyDown(KeyCode.E))
-        {
-            
-        }
-        if(Input.GetKeyDown(KeyCode.P))
-        {
-            
-        }
-    }
 
     public void setCurrentEvidence(string evidence)
     {
@@ -60,6 +54,17 @@ public class EvidenceManager : MonoBehaviour
         {
             presentbutton.SetActive(false);
             currDesc.text = "";
+            currev = null;
+        } else
+        {
+            for(int i = 0; i < evidenceList.Length; i++)
+            {
+                if(evidenceList[i].name.text == evidence)
+                {
+                    currev = evidenceList[i];
+                    break;
+                }
+            }
         }
         if (tm.GetInTestimony()) presentbutton.SetActive(true);
     }
@@ -71,7 +76,7 @@ public class EvidenceManager : MonoBehaviour
         tm.SetEnabled(!displayEvidence);
         ep.SetActive(displayEvidence);
 
-        if (!tm.GetInTestimony() || !displayEvidence) {
+        if (!tm.GetInTestimony() || !displayEvidence || !ep.activeSelf) {
             presentbutton.SetActive(false);
             setCurrentEvidence("");
         }
@@ -83,10 +88,14 @@ public class EvidenceManager : MonoBehaviour
 
         if (displayEvidence && tm.GetInTestimony())
         {
-            if (tm.IsContradictionWithCurrentTestimony(currentEvidence))
+            string[] set = new string[3];
+
+            if (currev != null && currev.CheckDetail(tm.GetCurrentProof(), set))
             {
-                
-                sm.BeginDialogue(tm.nextDialogue, true);
+                set[2] = tm.GetCurrentCont();
+                Debug.Log(set[0] + " " + set[1] + " " + set[2]);
+                sm.gs.GenerateObjection(sm.evidence, set);
+                sm.BeginDialogue(set[0], true);
             }
             else
             {
@@ -95,6 +104,8 @@ public class EvidenceManager : MonoBehaviour
         }
         presentbutton.SetActive(false);
         displayEvidence = false;
+        presentbutton.SetActive(false);
+        setCurrentEvidence("");
         dm.SetEnabled(!displayEvidence);
         ep.SetActive(displayEvidence);
     }

@@ -1,0 +1,7 @@
+[witness1]
+test 1
+test 2
+You want the truth? Fine. It was [timeframe] the murder at <location>.
+I was <witnessaction> when I saw [defendant] run past.
+They were holding a <weapon>! The very same one that [victim] was [murder] with!
+[defendant] stood out to me because they were dressed in <defendantprofession> clothes!

@@ -1,0 +1,20 @@
+camera;0
+line;Daphne;Hang on!
+camera;1
+line;[witness1];W-what?
+camera;0
+line;Daphne;So you say [defendant] was dressed like a <lie>?
+line;Daphne;That doesn't make any sense! My client is actually a <truth>!
+line;Daphne;They had just gotten off work, so they were in their <truth> uniform!
+camera;1
+line;[witness1];But I swear I...
+camera;2
+line;Prosecco;(Nice going, Daphne!)
+line;Prosecco;[witness1], can you explain why you lied to the court about what clothes the defendant was wearing?
+camera;1
+line;[witness1];I-it wasn't that important, I swear!!
+camera;0
+line;Daphne;Of course it's important! Who's to say you even saw [defendant]?!
+camera;1
+line;[witness1];Sh-shut up!!!!
+advance

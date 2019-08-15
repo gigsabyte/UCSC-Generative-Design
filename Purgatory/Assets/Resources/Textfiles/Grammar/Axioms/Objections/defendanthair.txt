@@ -1,0 +1,21 @@
+camera;0
+line;Daphne;Hang on!
+camera;1
+line;[witness1];W-what?
+camera;0
+line;Daphne;So you say [defendant] had noticeably <lie> hair?
+line;Daphne;Well, truth is they've got <truth> hair!
+camera;1
+line;[witness1];But I swear I...
+camera;2
+line;Prosecco;(Nice going, Daphne!)
+line;Prosecco;[witness1], can you explain why you lied to the court about the defendant's hair color?
+camera;1
+line;[witness1];W-well, maybe I'm color blind...
+camera;2
+line;Prosecco;You are unfortunately in possession of perfect color vision.
+camera;0
+line;Daphne;HA!
+camera;1
+line;[witness1];Sh-shut up!!!!
+advance

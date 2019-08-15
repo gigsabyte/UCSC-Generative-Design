@@ -119,63 +119,96 @@ public class DialogueManager : MonoBehaviour
         if (characterTalking) return;
 
         lineIndex++;
-        Debug.Log(lineIndex);
         ScriptLine line = lines[lineIndex];
-        if(line.command == "camera")
+        if (line.command == "camera")
         {
             int pos = Int32.Parse(line.arguments[0]);
             cam.MoveToPosition(pos);
             ParseLine();
         }
-        else if(line.command == "line")
+        else if (line.command == "line")
         {
-            charName.text = line.arguments[0];
+            charName.text = line.arguments[0].Split(' ')[0];
+            if(charName.text.Length > 0 && charName.text[0] == '@')charName.text = charName.text.Substring(1, charName.text.Length - 1);
             typingRoutine = TypeDialogue(line.arguments[1]);
             StartCoroutine(typingRoutine);
         }
-        else if(line.command == "wait")
+        else if (line.command == "wait")
         {
             float time = float.Parse(line.arguments[0]);
             StartCoroutine(KillTime(time));
         }
-        else if(line.command == "show")
+        else if (line.command == "show")
         {
             ShowUI();
             ParseLine();
         }
-        else if(line.command == "hide")
+        else if (line.command == "hide")
         {
             HideUI();
             ParseLine();
         }
-        else if(line.command == "losehealth")
+        else if (line.command == "losehealth")
         {
             float amount = float.Parse(line.arguments[0]);
             sm.LoseHealth(amount);
         }
-        else if(line.command == "branch")
+        else if (line.command == "bgm")
+        {
+            sm.am.PlayBGM(line.arguments[0]);
+            ParseLine();
+        }
+        else if (line.command == "fadein")
+        {
+            StartCoroutine(sm.FadeIn());
+            ParseLine();
+        }
+        else if(line.command == "showcr")
+        {
+            sm.em.evidencebutton.SetActive(true);
+            ParseLine();
+        }
+        else if (line.command == "branch")
         {
             SaveScript();
-            if(line.arguments[0] == "generated")
+            if (line.arguments[0] == "generated")
             {
                 LoadScript(line.arguments[1], true);
             }
             LoadScript(line.arguments[0]);
         }
-        else if(line.command == "unbranch")
+        else if (line.command == "unbranch")
         {
             ReturnToScript();
         }
-        else if(line.command == "testimony")
+        else if (line.command == "testimony")
         {
             cam.MoveToPosition(1);
-            Debug.Log(line.arguments[0]);
             sm.BeginTestimony(line.arguments[0]);
         }
-        else if(line.command == "end")
+        else if (line.command == "advance")
+        {
+            sm.Advance();
+        }
+        else if (line.command == "swapwit")
+        {
+            sm.SwapWitnesses();
+            ParseLine();
+        }
+        else if (line.command == "end")
         {
             if (sm.testimonyPaused) sm.ResumeTestimony();
-            else Destroy(this);
+            else
+            {
+                sm.am.StopCurrentBGM();
+                acceptingInput = false;
+                StartCoroutine(sm.FadeOut());
+            }
+        } else if (line.command == "deathend")
+        {
+            sm.am.StopCurrentBGM();
+            acceptingInput = false;
+            StartCoroutine(sm.FadeOut());
         }
         else
         {
@@ -212,9 +245,28 @@ public class DialogueManager : MonoBehaviour
     //animates text so that it appears one letter at a time
     IEnumerator TypeDialogue(string sentence)
     {
-        Debug.Log(sentence);
+        int buffer = 0;
         characterTalking = true;
         dialogueText.text = "";
+
+        float pitch = 1;
+        
+        switch(charName.text)
+        {
+            case "":
+                pitch = 0f;
+                break;
+            case "???":
+            case "Prosecco":
+                pitch = 1.2f;
+                break;
+            case "Daphne":
+                pitch = 0.9f;
+                break;
+            default:
+                break;
+        }
+
         foreach (char letter in sentence.ToCharArray())
         {
             if(letter == '@')
@@ -222,9 +274,12 @@ public class DialogueManager : MonoBehaviour
                 highlighting = !highlighting;
                 continue;
             }
+            if (buffer % 5 == 0) sm.am.PlaySFX("Blip", pitch);
+            buffer++;
+
             if (highlighting) dialogueText.text += "<color=lightblue>" + letter + "</color>";
             else dialogueText.text += letter;
-            yield return null;
+            yield return new WaitForSeconds(0.01f);
         }
         characterTalking = false;
     }
@@ -255,11 +310,16 @@ public class DialogueManager : MonoBehaviour
 
     public void LoadScript(string name, bool isGenerated = false)
     {
-        
 
-        if(isGenerated) script = sm.gs.GeneratedAssets[name];
-        else script = Resources.Load("Textfiles/"+name) as TextAsset;
 
+        try
+        {
+            script = sm.gs.GeneratedAssets[name];
+        }
+        catch (Exception e)
+        {
+            script = Resources.Load("Textfiles/" + name) as TextAsset;
+        }
         
 
         var stream = new MemoryStream();
@@ -281,7 +341,6 @@ public class DialogueManager : MonoBehaviour
         do
         {
             line = r.ReadLine();
-            Debug.Log(line);
             
             if (line != null)
             {

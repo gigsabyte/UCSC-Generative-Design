@@ -18,6 +18,9 @@ public class TestimonyManager : MonoBehaviour
     [SerializeField]
     Image namebox;
 
+    [SerializeField]
+    StateManager sm;
+
     TextAsset currfile;
 
     string witness;
@@ -35,21 +38,26 @@ public class TestimonyManager : MonoBehaviour
     public string nextDialogue = "";
     public string errorDialogue = "";
 
+    bool highlighting = false;
+
     struct Testimony
     {
         public bool isContradiction;
         public string proof;
+        public string cont;
         public string line;
         public bool alreadyDisplayed;
 
-        public Testimony(string isCon, string proofin, string linein)
+        public Testimony(string isCon, string proofin, string linein, string contin = "")
         {
             if(isCon == "lie")
             {
                 proof = proofin;
                 isContradiction = true;
+                cont = contin;
             } else
             {
+                cont = null;
                 proof = null;
                 isContradiction = false;
             }
@@ -84,7 +92,19 @@ public class TestimonyManager : MonoBehaviour
         {
             StopCoroutine(typingRoutine);
             characterTalking = false;
-            dialogueText.text = testlog[index].line;
+            dialogueText.text = "";
+            highlighting = false;
+            foreach (char letter in testlog[index].line.ToCharArray())
+            {
+                if (letter == '@')
+                {
+                    highlighting = !highlighting;
+                    continue;
+                }
+                if (highlighting) dialogueText.text += "<color=lightblue>" + letter + "</color>";
+                else dialogueText.text += "<color=orange>" + letter + "</color>";
+            }
+            highlighting = false;
             testlog[index].setDisplayed(true);
         }
         else //advance line if line is finished
@@ -108,7 +128,19 @@ public class TestimonyManager : MonoBehaviour
                 characterTalking = false;
             }
             index--;
-            dialogueText.text = testlog[index].line;
+            dialogueText.text = "";
+            highlighting = false;
+            foreach (char letter in testlog[index].line.ToCharArray())
+            {
+                if (letter == '@')
+                {
+                    highlighting = !highlighting;
+                    continue;
+                }
+                if (highlighting) dialogueText.text += "<color=lightblue>" + letter + "</color>";
+                else dialogueText.text += "<color=orange>" + letter + "</color>";
+            }
+            highlighting = false;
 
         }
     }
@@ -124,7 +156,19 @@ public class TestimonyManager : MonoBehaviour
         }
         else
         {
-            dialogueText.text = testlog[index].line;
+            dialogueText.text = "";
+            highlighting = false;
+            foreach (char letter in testlog[index].line.ToCharArray())
+            {
+                if (letter == '@')
+                {
+                    highlighting = !highlighting;
+                    continue;
+                }
+                if (highlighting) dialogueText.text += "<color=lightblue>" + letter + "</color>";
+                else dialogueText.text += "<color=orange>" + letter + "</color>";
+            }
+            highlighting = false;
         }
         
     }
@@ -144,25 +188,37 @@ public class TestimonyManager : MonoBehaviour
         acceptingInput = en;
     }
 
-    public bool IsContradictionWithCurrentTestimony(string evidence)
+    public string GetCurrentProof ()
     {
-        Debug.Log(testlog[index].proof);
-        Debug.Log(testlog[index].isContradiction);
-        return (testlog[index].isContradiction && testlog[index].proof == evidence);
+        Debug.Log(testlog[index].isContradiction + " - " + testlog[index].line + " - " + testlog[index].proof);
+        return (testlog[index].proof);
+    }
+
+    public string GetCurrentCont()
+    {
+        Debug.Log(testlog[index].isContradiction + " - " + testlog[index].line + " - " + testlog[index].proof);
+        return (testlog[index].cont);
     }
 
 
     //animates text so that it appears one letter at a time
     IEnumerator TypeDialogue(string sentence)
     {
-        Debug.Log(sentence);
         characterTalking = true;
         dialogueText.text = "";
+        highlighting = false;
         foreach (char letter in sentence.ToCharArray())
         {
-            dialogueText.text += letter;
+            if(letter == '@')
+            {
+                highlighting = !highlighting;
+                continue;
+            }
+            if (highlighting) dialogueText.text += "<color=lightblue>" + letter + "</color>";
+            else dialogueText.text += "<color=orange>" + letter + "</color>";
             yield return null;
         }
+        highlighting = false;
         testlog[index].setDisplayed(true);
         characterTalking = false;
     }
@@ -173,8 +229,16 @@ public class TestimonyManager : MonoBehaviour
         acceptingInput = false;
 
         testlog = new List<Testimony>();
-
-        TextAsset file = Resources.Load("Textfiles/" + name) as TextAsset;
+        TextAsset file;
+        try
+        {
+            file = sm.gs.GeneratedAssets[name];
+        }
+        catch (Exception e)
+        {
+            file = Resources.Load("Textfiles/" + name) as TextAsset;
+        }
+        Debug.Log(file.text);
 
         var stream = new MemoryStream();
         var writer = new StreamWriter(stream);
@@ -184,18 +248,28 @@ public class TestimonyManager : MonoBehaviour
         var r = new StreamReader(stream, Encoding.UTF8);
         string line;
 
-        witness = r.ReadLine();
+        witness = r.ReadLine().Split(' ')[0];
+        witness = witness.Substring(1, witness.Length-1);
 
         nextDialogue = r.ReadLine();
         errorDialogue = r.ReadLine();
 
-        do
+        string cont = "";
+
+        string[] testimony = file.text.Split('\n');
+
+        for(int i = 3; i < testimony.Length; i++)
         {
-            line = r.ReadLine();
+            line = testimony[i];
             Debug.Log(line);
 
-            if (line != null)
+            if (line != null && line != "")
             {
+                if(line[0] == ';')
+                {
+                    cont = line.Substring(1, line.Length - 1);
+                    continue;
+                }
                 string[] lineData = line.Split(';');
 
                 if (lineData.Length < 1) continue;
@@ -203,13 +277,23 @@ public class TestimonyManager : MonoBehaviour
                 string isCon = lineData[0];
                 string linein = lineData[1];
                 string proof = "";
-                if (lineData.Length > 2) proof = lineData[2];
+                string contr = "";
+                if (lineData.Length > 3)
+                {
+                    proof = lineData[2];
+                    contr = lineData[3];
+                }
+                else if (cont != "")
+                {
+                    proof = cont;
+                    cont = "";
+                }
 
-                Testimony lineEntry = new Testimony(isCon, proof, linein);
+                Testimony lineEntry = new Testimony(isCon, proof, linein, contr);
 
                 testlog.Add(lineEntry);
             }
-        } while (line != null);
+        }
 
         r.Close();
 

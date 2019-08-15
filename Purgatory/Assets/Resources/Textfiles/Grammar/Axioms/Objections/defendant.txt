@@ -1,0 +1,22 @@
+Daphne;Hang on!
+camera;1
+line;[witness2];W-what?
+camera;0
+line;Daphne;Who the heck is <lie>?!
+camera;1
+line;[witness2];The defendant! Don't you know your own client's name?
+camera;0
+line;Daphne;I do, but apparently you don't! The one on trial here is <truth>!
+camera;1
+line;[witness2];Grr...
+camera;2
+line;Prosecco;(Nice going, Daphne!)
+line;Prosecco;[witness2], can you explain why you lied to the court about the defendant's name?
+camera;1
+line;[witness2];I-it wasn't that important, I swear!!
+camera;0
+line;Daphne;Of course it's important! 
+line;Daphne;How are you even sure you saw the right person?!
+camera;1
+line;[witness2];Sh-shut up!!!!
+advance

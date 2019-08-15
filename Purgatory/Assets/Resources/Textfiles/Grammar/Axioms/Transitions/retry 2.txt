@@ -1,0 +1,13 @@
+camera;1
+line;[witness2];A-anyway, I'm going to conclude my testimony now.
+camera;0
+line;Daphne;Fine. Sure. Whatever.
+line;Daphne;Please, continue. Your Highness.
+camera;2
+line;Prosecco;Daphne...
+camera;0
+line;Daphne;Whatever you're about to say, can it.
+line;Daphne;I'm this close, Prosecco. Thiiis close.
+camera;1
+line;[witness2];Aaaaaaanyway...
+testimony;<testimony>

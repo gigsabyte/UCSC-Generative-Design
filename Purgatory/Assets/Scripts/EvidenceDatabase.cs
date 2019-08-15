@@ -28,7 +28,6 @@ public class EvidenceDatabase : MonoBehaviour
         for(int i = 0; i < sprites.Length; i++)
         {
             string key = sprites[i].name;
-            Debug.Log(key);
             Sprite val = sprites[i];
             database.Add(key, val);
         }
@@ -36,7 +35,6 @@ public class EvidenceDatabase : MonoBehaviour
 
     public Sprite getSpriteByName(string key)
     {
-        Debug.Log(">" + key + "< is the name of the key");
         return database[key];
     }
 }

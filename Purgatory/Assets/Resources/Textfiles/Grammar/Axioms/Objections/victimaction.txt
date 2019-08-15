@@ -1,0 +1,21 @@
+cDaphne;Hang on!
+camera;1
+line;[witness2];W-what?
+camera;0
+line;Daphne;So you saw the victim <lie> right before the murder?
+camera;1
+line;[witness2];
+line;Daphne;Are you sure you saw the victim? Because they were actually were actually <truth>!
+camera;1
+line;[witness2];W-well...
+camera;2
+line;Prosecco;(Nice going, Daphne!)
+line;Prosecco;[witness2], can you explain why you lied to the court about the victim's actions near the time of the murder?
+camera;1
+line;[witness2];I-it wasn't that important, I swear!!
+camera;0
+line;Daphne;Of course it's important! 
+line;Daphne;If you witnessed the victim, it shouldn't be so hard to remember what they were doing before they died!
+camera;1
+line;[witness2];Sh-shut up!!!!
+advance

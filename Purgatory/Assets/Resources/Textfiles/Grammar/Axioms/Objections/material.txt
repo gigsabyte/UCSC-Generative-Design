@@ -1,0 +1,19 @@
+camera;0
+line;Daphne;Hang on!
+camera;1
+line;[witness2];W-what?
+camera;0
+line;Daphne;So you say the weapon was made of <lie>?
+line;Daphne;You can tell just by looking at it the weapon was made of <truth>!
+camera;1
+line;[witness2];But I swear I...
+camera;2
+line;Prosecco;(Nice going, Daphne!)
+line;Prosecco;[witness2], can you explain why you lied about the material of the defendant's weapon?
+camera;1
+line;[witness2];I-it wasn't that important, I swear!!
+camera;0
+line;Daphne;Of course it's important! You're trying to frame my client!
+camera;1
+line;[witness2];Sh-shut up!!!!
+advance

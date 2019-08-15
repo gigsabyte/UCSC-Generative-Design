@@ -1,0 +1,3 @@
+victim
+victimage:20,25,30,35,40,45,50,55,60,65,69
+victimprofession:salesperson,waitperson,con artist,accountant,spy,chef,farmer,teacher,doctor,veteranarian,firefighter

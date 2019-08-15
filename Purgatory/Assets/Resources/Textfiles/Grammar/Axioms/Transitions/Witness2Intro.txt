@@ -1,0 +1,15 @@
+bgm;Intro
+camera;1
+line;[witness2];Yo.
+camera;2
+line;Prosecco;Witness, state your name and profession.
+camera;1
+line;[witness2];I'm [witness2]. I'm [witness2age] and a [witness2profession].
+line;[witness2];I saw the murder happen.
+camera;2
+line;Prosecco;Thank you. You may now begin your testimony.
+line;Prosecco;Defense, please cross-examine the witness.
+line;Daphne;Yeah, yeah.
+camera;1
+line;[witness2];Well, here I go then.
+unbranch

@@ -1,0 +1,29 @@
+camera;1
+line;[witness1];A-anyway, let me keep testifying! I wasn't done!
+line;[witness1];L-let me try again!! Please!
+camera;2
+line;Prosecco;Try again...
+camera;1
+line;[witness1];Yeah! Let me have a do-over!
+camera;0
+line;Daphne;What?! You just lied to the court!
+line;Daphne;That's not a "do-over" thing, that's a crime!
+camera;2
+line;Prosecco;The defense is correct. Perjury is a punishable offense.
+camera;1
+line;[witness1];...
+line;[witness1];No. You're going to let me try again.
+camera;2
+line;Prosecco;Witness.
+camera;1
+line;[witness1];Prosecco.
+camera;2
+line;Prosecco;...
+line;Prosecco;... Fine. Witness, testify once more.
+camera;0
+line;Daphne;What?
+camera;2
+line;Prosecco;Daphne. Please. Cross-examine the witness.
+line;Prosecco;They can't get away with it next time.
+line;Daphne;O-okay...
+testimony;<testimony>

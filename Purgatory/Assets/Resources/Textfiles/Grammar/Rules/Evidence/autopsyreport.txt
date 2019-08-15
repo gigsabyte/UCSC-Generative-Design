@@ -1,0 +1,3 @@
+autopsyreport
+cause:blunt force trauma,blood loss,anaphylactic shock,heart failure
+rate:instantaneously,within 15 minutes,45 minutes later,over two hours later

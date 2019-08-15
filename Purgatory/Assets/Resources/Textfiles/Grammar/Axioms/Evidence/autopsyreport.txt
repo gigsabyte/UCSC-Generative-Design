@@ -1,0 +1,3 @@
+The victim was [murder] with a [weapon]. 
+The cause of death was <cause>.
+The victim died <rate>.
