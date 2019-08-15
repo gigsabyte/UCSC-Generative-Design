@@ -1,0 +1,63 @@
+camera;0
+line;Daphne;.... Ughghhhhhh........
+line;Daphne;I can't TAKE it anymore!!!
+line;Daphne;Witness!! I've had it with you!
+line;Daphne;STOP LYING OR GET OUT!
+line;Daphne;I'M THIS CLOSE TO THROWING YOU OUT WITH MY BARE HANDS, BUCKO!
+camera;1
+line;[witness2];I'm not...
+line;[witness2];I...
+line;[witness2];I just...
+line;[witness2];AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGGGGGHHHHHHHHHH.
+camera;2
+line;Prosecco;Witness.
+camera;1
+line;[witness1];Yes.
+camera;2
+line;Prosecco;It's time to stop lying.
+camera;1
+line;[witness1];Fine.
+line;[witness1];Fine, I'll fess up.
+branch;generated;True
+camera;2
+line;Prosecco;And there it is. [witness2], please take your leave now.
+camera;1
+line;[witness2];I'll do that. Thank you.
+camera;0
+line;Daphne;Wait!!! Aren't you going to go to jail or something?!
+line;Daphne;And isn't my client going to get declared Not Guilty?!
+camera;2
+line;Prosecco;No. They won't.
+camera;0
+line;Daphne;That's messed up!
+camera;2
+line;Prosecco;It is. Daphne, this whole place is messed up.
+camera;0
+line;Daphne;"This place" ???
+camera;2
+line;Prosecco;This is @Purgatory Court@. We're stuck here. 
+line;Prosecco;Doomed to repeat the same meaningless testimonies over and over, without end.
+camera;0
+line;Daphne;...
+line;Daphne;Is this like a joke or something?
+camera;2
+line;Prosecco;No, it's the truth.
+line;Prosecco;In about a minute, you're going to fall asleep.
+line;Prosecco;When you wake up, we'll be back in this court with a new case to solve.
+line;Prosecco;We're going to do it again and again. Forever.
+camera;0
+line;Daphne;Prosecco...
+line;Daphne;Have you known this whole time?!
+line;Daphne;H-how many times have we gone through this already!
+line;Daphne;Can we even get out?!
+camera;2
+line;Prosecco;I'm working on it. Trust me there.
+line;Prosecco;For now, though...
+camera;0
+line;Daphne;I'm really tired. That's bad, right?
+camera;2
+line;Prosecco;No, it's fine.
+line;Prosecco;Good night, Daphne.
+camera;0
+line;Daphne;... Good night.
+end

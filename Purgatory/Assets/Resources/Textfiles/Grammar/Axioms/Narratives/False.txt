@@ -1,0 +1,18 @@
+camera;0
+line;Daphne;So, what's the story?
+camera;2
+line;Prosecco;Here's how it went down.
+line;Prosecco;The victim, <victim>, was <victimaction> at <location>.
+line;Prosecco;The defendant, <defendant>, was apparently nearby.
+line;Prosecco;A witness, <witness1>, claims to have seen the defendant <timeframe> the murder.
+line;Prosecco;This witness was <witnessaction> at the time.
+camera;0
+line;Daphne;And?
+camera;2
+line;Prosecco;The victim was <murder> with a <weapon>.
+camera;0
+line;Daphne;Woah, gross!
+camera;2
+line;Prosecco;Another witness, <witness2>, claims to have directly witnessed the murder.
+unbranch
+end

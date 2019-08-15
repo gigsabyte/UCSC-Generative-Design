@@ -1,0 +1,11 @@
+camera;0
+line;Daphne;Hey!!! You said you were real important, but I beg to differ!
+line;Daphne;According to the court record, you're just some guy!
+line;Daphne;How is "Some Guy" important enough to sit with the bigwigs?
+camera;1
+line;Defendant;!
+camera;2
+line;Prosecco;Grrrr.....
+camera;0
+line;Daphne;Checkmate, scrub.
+end

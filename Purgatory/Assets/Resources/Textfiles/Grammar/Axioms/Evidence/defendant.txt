@@ -1,0 +1,3 @@
+A <defendantage> year old <defendantprofession>.
+Their hair is <defendanthair>.
+They have a <defendantbuild> build.

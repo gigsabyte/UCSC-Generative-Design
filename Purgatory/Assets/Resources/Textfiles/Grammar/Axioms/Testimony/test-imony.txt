@@ -1,0 +1,7 @@
+[witness1]
+test 1
+test 2
+I saw [victim] at <location>.
+[defendant] was there too.
+At the time, I was <witnessaction>.
+I hadn't been there <timeframe>...

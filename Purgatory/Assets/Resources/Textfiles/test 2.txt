@@ -1,0 +1,17 @@
+camera;0
+line;Daphne;Hey!!! That's a contradiction right there!
+line;Daphne;It's very, uh.... contradictory.
+camera;2
+line;Prosecco;... Wait.
+line;Prosecco;There isn't one. Daphne, you're going to lose some health for this.
+losehealth;32
+camera;0
+line;Daphne;Wait, health?!
+line;Daphne;What happens when I run out?!
+camera;2
+line;Prosecco;You'll fall asleep, most likely.
+camera;0
+line;Daphne;That doesn't sound too good...
+camera;2
+line;Prosecco;It isn't. Please try to stay awake.
+end

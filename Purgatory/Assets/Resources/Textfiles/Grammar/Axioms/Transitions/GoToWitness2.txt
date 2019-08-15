@@ -1,0 +1,22 @@
+camera;1
+line;[witness1];I...
+line;[witness1];I...
+line;[witness1];Okay.
+camera;2
+Prosecco;Witness.
+camera;1
+line;[witness1];Yes.
+camera;2
+line;Prosecco;Please exit the court. You're out of retries.
+camera;1
+line;[witness1];Fine.
+line;[witness1];Remember what's at stake here, Prosecco.
+camera;0
+line;Daphne;What was that about, Prosecco?
+camera;2
+line;Prosecco;... I'm sorry, Daphne.
+line;Prosecco;...
+line;Prosecco;In any case, it's time for our next witness.
+swapwit
+branch;generated;Witness2Intro
+testimony;<testimony>

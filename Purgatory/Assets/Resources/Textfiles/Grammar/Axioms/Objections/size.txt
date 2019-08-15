@@ -1,0 +1,19 @@
+camera;0
+line;Daphne;Hang on!
+camera;1
+line;[witness2];W-what?
+camera;0
+line;Daphne;So you say [defendant] was holding a <lie> [weapon]?
+line;Daphne;That's strange, because the victim was killed with a <truth> [weapon]!
+camera;1
+line;[witness2];But I swear I...
+camera;2
+line;Prosecco;(Nice going, Daphne!)
+line;Prosecco;[witness2], can you explain why you tried to implicate the defendant with the wrong weapon?
+camera;1
+line;[witness2];I-it wasn't that important, I swear!!
+camera;0
+line;Daphne;Of course it's important! You're trying to frame my client!
+camera;1
+line;[witness2];Sh-shut up!!!!
+advance

@@ -1,0 +1,8 @@
+[witness1]
+test 1
+test 2
+The defendant raised up the [weapon], and I noticed it looked <age>.
+Then, they brought it down and <murder> the victim with it!
+That horrible <defendant>...
+I stayed with [victim] until they died <rate>. I was too shocked to do anything else.
+They probably died from <cause>.

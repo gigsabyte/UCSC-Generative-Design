@@ -4,27 +4,32 @@ body {
 
 .pagecontent {
 	text-align: center;
+  margin: auto;
 }
 
 h1 {
   color: #3d3d3d;
   font-family: Consolas,monaco,monospace;
   font-size: 32;
+  text-align: center;
 }
 h2 {
   color: #3d3d3d;
   font-family: Consolas,monaco,monospace;
   font-size: 20;
+  text-align: center;
 }
 h3 {
   color: #3d3d3d;
   font-family: Consolas,monaco,monospace;
   font-size: 12;
+  text-align: center;
 }
 p {
   color: #3d3d3d;
   font-family: Consolas,monaco,monospace;
   font-size: 16;
+  text-align: center;
 }
 img {
   max-width: 100%;
@@ -60,3 +65,10 @@ button {
   max-width: 100%;
   height: auto;
 }
+ul {
+  color: #3d3d3d;
+  font-family: Consolas,monaco,monospace;
+  font-size: 16;
+  list-style-position: inside;
+}
+

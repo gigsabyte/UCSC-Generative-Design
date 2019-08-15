@@ -1,0 +1,20 @@
+camera;0
+line;Daphne;Hang on!
+camera;1
+line;[witness1];W-what?
+camera;0
+line;Daphne;So you say [defendant] had a <lie> build?
+line;Daphne;That's a lie if I ever heard one! My client actually has a <truth> body type!
+line;Daphne;There's no way you could mistake them for a <lie> person!
+camera;1
+line;[witness1];W-well, looks are deceiving, and...
+camera;2
+line;Prosecco;(Nice going, Daphne!)
+line;Prosecco;[witness1], can you explain why you lied to the court about the defendant's build?
+camera;1
+line;[witness1];T-It's not that important, right?
+camera;0
+line;Daphne;Of course it's important! Who's to say you even saw [defendant]?!
+camera;1
+line;[witness1];Sh-shut up!!!!
+advance

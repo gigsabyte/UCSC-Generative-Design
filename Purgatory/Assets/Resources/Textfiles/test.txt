@@ -1,0 +1,53 @@
+bgm;Beginning
+camera;0
+line;;(Click to advance text.)
+hide
+wait;0.5
+show
+line;???;...ood night...
+line;???;... ove you.
+hide
+wait;1
+show
+line;???;DAPHNE!!!
+fadein
+wait;0.4
+bgm;Intro
+line;Daphne;W-what?!
+camera;2
+line;???;Oh good, you're awake.
+camera;0
+line;Daphne;Prosecco?
+camera;2
+line;Prosecco;Yes. Good morning.
+line;Prosecco;Or, rather, bad morning. As it were.
+camera;0
+line;Daphne;Bad morning to you too, babe.
+line;Daphne;Uh, why are we in court? I don't remember taking any clients recently.
+line;Daphne;Can't seem to remember much of anything, now that I think about it.
+camera;2
+line;Prosecco;(This is always so difficult to explain...)
+line;Prosecco;Here, Daphne. Check the Court Record.
+camera;0
+line;Daphne;The what?
+showcr
+line;Prosecco;Click the blue button in the top left of the screen.
+line;Daphne;Oh, okay.
+line;Daphne;Huh. Looks like some case details.
+camera;2
+line;Prosecco;That's because we're in a trial right now.
+line;Prosecco;The judge and defendant will not be joining us today.
+line;Prosecco;In any case, I have orders to let two witnesses testify.
+line;Prosecco;That's all I'm at liberty to say.
+camera;0
+line;Daphne;And I'm the one who's going to cross-examine them?
+line;Prosecco;Correct. I have reason to believe they won't be entirely truthful.
+line;Daphne;Sounds good to me. Can we go over the case details before we start?
+camera;2
+line;Prosecco;Sure.
+branch;generated;False
+camera;2
+line;Prosecco;Those are all the details I've been given. It appears our first witness is ready to testify.
+branch;generated;Witness1Intro
+testimony;test-imony
+end

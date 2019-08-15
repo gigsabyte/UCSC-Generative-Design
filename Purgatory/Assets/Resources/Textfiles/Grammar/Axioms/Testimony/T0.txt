@@ -1,0 +1,8 @@
+[witness1]
+test 1
+test 2
+I saw [defendant] at <location>.
+It was probably <timeframe> the murder.
+At the time, I was <witnessaction>.
+The defendant looked to be about <defendantage> years old.
+Their <defendanthair> hair was super noticeable.

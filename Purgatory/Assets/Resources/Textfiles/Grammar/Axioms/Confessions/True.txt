@@ -1,0 +1,11 @@
+bgm;Confession
+camera;1
+line;[witness2];As far as I know, [defendant] isn't even a real person.
+line;[witness2];The real murderer is <culprit>.
+line;[witness2];<prn> [murder] [victim] with the [weapon].
+line;[witness2];<prn> got <accomplice> to act as an accomplice.
+line;[witness2];We decided to pretend to be "witnesses" to cover each other's tracks.
+line;[witness2];We came up with someone to frame and decided to go for it.
+line;[witness2];Too bad Daphne was here to catch us...
+unbranch
+end

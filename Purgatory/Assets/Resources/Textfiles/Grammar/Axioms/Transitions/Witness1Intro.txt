@@ -1,0 +1,20 @@
+camera;1
+line;[witness1];Yo.
+camera;2
+line;Prosecco;Witness, state your name and profession.
+camera;1
+line;[witness1];I'm [witness1]. I'm [witness1age] and a [witness1profession].
+camera;2
+line;Prosecco;Thank you. You may now begin your testimony.
+line;Prosecco;(Daphne!)
+camera;0
+line;Daphne;(What!)
+line;Prosecco;(Pay attention to the @key words@ this witness says!)
+line;Prosecco;(If anything contradicts the truth we've been given, @present@ the relevant evidence.)
+line;Prosecco;(No matter how small, if it's wrong, call it out!)
+line;Daphne;(Got it! Thanks!)
+line;Daphne;(Also, I love you!)
+line;Prosecco;(NOT THE TIME!)
+camera;1
+line;[witness1];Are you two done whispering yet? I'm going to testify now.
+unbranch

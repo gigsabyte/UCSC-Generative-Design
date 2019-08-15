@@ -1,0 +1,2 @@
+The murder weapon. A <size> [weapon].
+Appears to be <age>. Made of <material>.
