@@ -23,37 +23,34 @@
     <script src = "code/asg5/main.js"></script>
   </head>
 
-  <body onload="main()">
+  <body>
 
     <div class="pagecontent">
-      <h1>CMPM 147, Summer 2019</h1>
-      <h2>Assignment 5: Music with Markov Chains</h2>
+      <h1>Directory of Assignments for CMPM 147, Summer 2019</h1>
 
-      <div id = "Play music"></div>
-      <div><p></p><div id="asg5"></div></div>
-      <p></p>
-      <p>--------------------------------------------------------------------------------------------------------------------------------------------------</p>
-      <p></p>
-      <p>Markov generation of classical music based on the works of Johann Sebastian Bach, Johannes Brahms, Domenico Sarlatti, and Pyotr Ilyich Tchaikovsky.</p>
-      <p>When a composer is added to the sample set, a MIDI collection of their music is translated to an array of plaintext strings. This array of strings is
-      then used to train the Markov generator based on the frequency of notes (or rests) appearing in sequence. </p>
-      <p>For example, every the generator observes a quarter note of A5, it adds the next note after it to a list of valid notes to appear after A5. After all notes
-      have been processed, the frequency of each note that comes after A5 is then normalized to a value between 0 and 1. If the Markov chain generates the note A5,
-      it then chooses the next note to generate based on these frequencies.</p>
-      <p>Markov chains work best with large volumes of data that is relatively specific. Because of this, you might notice that adding more composers actually makes the music sound worse.</p>
-      <p></p>
-      <h3><i>Not that classical was ever good to begin with...</i></h3>
+      <h2><a href="asg1.html">Assignment 1: Music Visualizer with Particle System</a></h2>
 
-      <button id="showgif"> Show .gif representation</button>
-      <p></p>
-      <img src="assets/imgs/asg5.gif" id="asg2gif" class="gif"></img>  
-      <h2>Past assignments:</h2>
-      <p><a href="asg4.html">Evolving Cars</a></p>
-      <p><a href="asg3.html">Interactive NPC Artist with Generative Grammars</a></p>
-      <p><a href="asg2.html">Terrain Generation with Perlin Noise</a></p>
-      <p><a href="asg1.html">Music Visualizer with Particle System</a></p>     
-      
-      
+      <a href="asg1.html"><img src="assets/imgs/asg1.gif" class="gif2"></img></a>
+
+      <h2><a href="asg2.html">Assignment 2: Terrain Generation with Perlin Noise</a></h2>
+
+      <a href="asg2.html"><img src="assets/imgs/asg2.gif" class="gif2"></img></a>
+
+      <h2><a href="asg3.html">Assignment 3: Interactive NPC Artist with Generative Grammars</a></h2>
+
+      <a href="asg3.html"><img src="assets/imgs/asg3.gif" class="gif2"></img></a>
+
+      <h2><a href="asg4.html">Assignment 4: Evolving Cars</a></h2>
+
+      <a href="asg4.html"><img src="assets/imgs/asg4.gif" class="gif2"></img></a>
+
+      <h2><a href="asg4.html">Assignment 5: Music with Markov Chains</a></h2>
+
+      <a href="asg5.html"><img src="assets/imgs/asg5.gif" class="gif2"></img></a>
+
+      <h2><a href="final/">Final Project: Purgatory Court</a></h2>
+
+      <a href="final/"><img src="assets/imgs/final.gif" class="gif2"></img></a>
 
     </div>
 

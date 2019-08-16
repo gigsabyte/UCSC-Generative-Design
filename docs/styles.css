@@ -65,6 +65,13 @@ button {
   max-width: 100%;
   height: auto;
 }
+
+.gif2 {
+  border-radius: 4px;
+  height: 40%;
+  width: auto;
+}
+
 ul {
   color: #3d3d3d;
   font-family: Consolas,monaco,monospace;
